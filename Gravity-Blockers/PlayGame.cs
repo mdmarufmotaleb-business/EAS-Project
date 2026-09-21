@@ -11,6 +11,22 @@ namespace EAS_Project
 
             while (true) //Game loop starts here
             {
+                if (grid.CheckWin(grid, "[A]"))
+                {
+                    Display.DisplayWinMessage(playerA.name);
+                    break;
+                }
+                else if (grid.CheckWin(grid, "[B]"))
+                {
+                    Display.DisplayWinMessage(playerB.name);
+                    break;
+                }
+                else if (grid.IsFull(grid))
+                {
+                    Display.DisplayDrawMessage();
+                    break;
+                }
+            
                 Display.DisplayMovesRemainingMessage(currentPlayer);
                 
                 if (currentPlayer.movesRemaining == 3 || currentPlayer.movesRemaining == 2)

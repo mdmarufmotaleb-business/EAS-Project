@@ -134,5 +134,15 @@ namespace EAS_Project
         {
             Console.WriteLine("\nYou are dropping a BLOCK");
         }
+
+        public static void DisplayWinMessage(string name)
+        {
+            Console.WriteLine($"\n{name} has won the game!");
+        }
+
+        public static void DisplayDrawMessage()
+        {
+            Console.WriteLine("\nThe game is a draw!");
+        }
     }
 }

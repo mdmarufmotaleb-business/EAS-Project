@@ -17,6 +17,8 @@ learnt to add while true loop - only needed syntax
 
 leanr synatx for many things. kknew logic
 
+
+Added check win conditonm 4 in a roaw
 How to check if input is string or int
 
 add gitinore (what files ti ignore and remove previously tracked junk files)

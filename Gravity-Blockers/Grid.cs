@@ -102,6 +102,95 @@ namespace EAS_Project
             Rows = Columns;
             Columns = temp;
         }
-    }
 
+        public bool CheckWin(Grid grid, string piece_symbol)
+        {
+            // Loop through every cell if it matches the piece_symbol
+            for (int r = 0; r < grid.Rows; r++)
+            {
+                for (int c = 0; c < grid.Columns; c++)
+                {
+                    string currentCell = grid.Cells[r, c];
+
+                    if (currentCell == "[ ]" || currentCell == "[X]")
+                        continue;
+
+                    if (currentCell != piece_symbol)
+                        continue;
+
+                    // Check horizontal
+                    if (c <= grid.Columns - 4 &&
+                        currentCell == grid.Cells[r, c + 1] &&
+                        currentCell == grid.Cells[r, c + 2] &&
+                        currentCell == grid.Cells[r, c + 3])
+                    {
+                        return true;
+                    }
+
+                    // Check vertical
+                    if (r <= grid.Rows - 4 &&
+                        currentCell == grid.Cells[r + 1, c] &&
+                        currentCell == grid.Cells[r + 2, c] &&
+                        currentCell == grid.Cells[r + 3, c])
+                    {
+                        return true;
+                    }
+
+                    // Check diagonal down-right
+                    if (r <= grid.Rows - 4 && c <= grid.Columns - 4 &&
+                        currentCell == grid.Cells[r + 1, c + 1] &&
+                        currentCell == grid.Cells[r + 2, c + 2] &&
+                        currentCell == grid.Cells[r + 3, c + 3])
+                    {
+                        return true;
+                    }
+
+                    // Check diagonal up-right
+                    if (r >= 3 && c <= grid.Columns - 4 &&
+                        currentCell == grid.Cells[r - 1, c + 1] &&
+                        currentCell == grid.Cells[r - 2, c + 2] &&
+                        currentCell == grid.Cells[r - 3, c + 3])
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        // Since the grid can rotate, we must check every edge
+        public bool IsFull(Grid grid)
+        {
+            // top row
+            for (int col = 0; col < grid.Columns; col++)
+            {
+                if (grid.Cells[0, col] == "[ ]")
+                    return false;
+            }
+
+            // bottom row
+            for (int col = 0; col < grid.Columns; col++)
+            {
+                if (grid.Cells[grid.Rows - 1, col] == "[ ]")
+                    return false;
+            }
+
+            // left column
+            for (int row = 0; row < grid.Rows; row++)
+            {
+                if (grid.Cells[row, 0] == "[ ]")
+                    return false;
+            }
+
+            // right column
+            for (int row = 0; row < grid.Rows; row++)
+            {
+                if (grid.Cells[row, grid.Columns - 1] == "[ ]")
+                    return false;
+            }
+
+            return true;
+        }
+
+    }
 }
