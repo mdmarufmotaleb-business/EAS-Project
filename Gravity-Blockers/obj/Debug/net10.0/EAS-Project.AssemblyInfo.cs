@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EAS-Project")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8b513d3a8661202aa966957e896d0d3b50934eba")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dcbd4d7c66767ad29942f371bee0a61d4901ab13")]
 [assembly: System.Reflection.AssemblyProductAttribute("EAS-Project")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EAS-Project")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
