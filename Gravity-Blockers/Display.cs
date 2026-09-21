@@ -89,5 +89,27 @@ namespace EAS_Project
             Console.WriteLine($"\nThe grid has rotated {direction}");
             Thread.Sleep(1000);
         }
+
+        public static void DisplayIntroMessage()
+        {
+            Console.WriteLine("\n\nHello, Welcome to Connect 4 - Gravity Blockers!");
+            Console.WriteLine("Please start by entering the names of both players\n");
+        }
+
+        public static void DisplayWelcomeMessage(string nameA, string nameB)
+        {
+            Console.WriteLine($"\nWelcome {nameA} and {nameB}! We will begin shortly...\n");
+            Thread.Sleep(3000);
+        }
+
+        public static void DisplayTitleMessage()
+        {
+            Console.WriteLine("\n\n\nCONNECT 4 - GRAVITY BLOCKERS");
+        }
+
+        public static void DisplayEmptyNameMessage(string player)
+        {
+            Console.WriteLine($"\nPlayer {player}'s name cannot be empty. Please enter a valid name.");
+        }
     }
 }

@@ -4,12 +4,18 @@ class Program
 {
     static void Main(string[] args)
     {
-        var (nameA, nameB) = PlayerSetup.GetPlayerNames();
+        Display.DisplayIntroMessage();
+
+        (Player playerA, Player playerB) = PlayerSetup.GetPlayers();
+
+        Display.DisplayWelcomeMessage(playerA.name, playerB.name);
+        Display.DisplayTitleMessage();
 
         Grid grid = Display.CreateGrid();
+
         Display.DisplayInitialGrid(grid);
 
-        PlayGame.Play(grid, nameA, nameB);
+        PlayGame.Play(grid, playerA, playerB);
 
     }
 }

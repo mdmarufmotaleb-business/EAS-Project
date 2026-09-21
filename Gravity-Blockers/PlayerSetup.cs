@@ -2,33 +2,25 @@ namespace EAS_Project
 {
     public static class PlayerSetup
     {
-        public static (string nameA, string nameB) GetPlayerNames()
+        public static (Player playerA, Player playerB) GetPlayers()
         {
-            Console.WriteLine("\n\nHello, Welcome to Connect 4 - Gravity Blockers!");
-            Console.WriteLine("Please start by entering the names of both players\n");
-
             string nameA = GetSinglePlayer("A");
             string nameB = GetSinglePlayer("B");
 
             Player playerA = new Player(nameA);
             Player playerB = new Player(nameB);
 
-            Console.WriteLine($"\nWelcome {playerA.name} and {playerB.name}! We will begin shortly...\n");
-            Thread.Sleep(3000);
-
-            Console.WriteLine("\n\n\nCONNECT 4 - GRAVITY BLOCKERS");
-
-            return (playerA.name, playerB.name);
+            return (playerA, playerB);
         }
 
-        public static string GetSinglePlayer(string player)
+        public static string GetSinglePlayer(string player) //is A or B (not be to confused with Player class)
         {
             Console.Write($"Player {player}'s Name: ");
             string? name = Console.ReadLine();
 
             while (string.IsNullOrWhiteSpace(name))
             {
-                Console.Write($"Name cannot be empty. Please enter Player {player}'s Name: ");
+                Display.DisplayEmptyNameMessage(player);
                 name = Console.ReadLine();
             }
 
