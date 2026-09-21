@@ -10,7 +10,9 @@ namespace EAS_Project
             string nameA = GetSinglePlayer("A");
             string nameB = GetSinglePlayer("B");
 
-            Console.WriteLine($"\nWelcome {nameA} and {nameB}! Let us begin.\n");
+            Console.WriteLine($"\nWelcome {nameA} and {nameB}! We will begin shortly...\n");
+            Thread.Sleep(3000);
+
 
             return (nameA, nameB);
         }
