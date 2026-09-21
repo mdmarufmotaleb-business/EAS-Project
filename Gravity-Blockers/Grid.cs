@@ -44,8 +44,31 @@ namespace EAS_Project
         public bool IsValidMove(int inputColumn)
         {
             int col = inputColumn - 1;
-            return Cells[0, col] == "[ ]"; // Check if the top cell of the column is empty
+            return Cells[0, col] == "[ ]"; // Checks if the top cell of the column is empty
         }
+
+        public bool IsValidColumn(int inputColumn)
+        {
+            return inputColumn >= 1 && inputColumn <= Columns;
+        }
+
+        // public void RotateRight()
+        // {
+        //     string[,] newCells = new string[Columns, Rows];
+
+        //     for (int r = 0; r < Rows; r++)
+        //     {
+        //         for (int c = 0; c < Columns; c++)
+        //         {
+        //             newCells[c, Rows - 1 - r] = Cells[r, c];
+        //         }
+        //     }
+
+        //     Cells = newCells;
+        //     int temp = Rows;
+        //     Rows = Columns;
+        //     Columns = temp;
+        // }
     }
 
 }

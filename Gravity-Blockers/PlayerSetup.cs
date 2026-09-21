@@ -5,15 +5,13 @@ namespace EAS_Project
         public static (string nameA, string nameB) GetPlayerNames()
         {
             Console.WriteLine("\n\nHello, Welcome to Connect 4 - Gravity Blockers!");
-            Console.WriteLine("Please start by entering the names of both players.\n");
+            Console.WriteLine("Please start by entering the names of both players\n");
 
             string nameA = GetSinglePlayer("A");
             string nameB = GetSinglePlayer("B");
 
             Console.WriteLine($"\nWelcome {nameA} and {nameB}! We will begin shortly...\n");
             Thread.Sleep(3000);
-
-            Console.Clear();
 
             Console.WriteLine("\n\n\nCONNECT 4 - GRAVITY BLOCKERS");
 

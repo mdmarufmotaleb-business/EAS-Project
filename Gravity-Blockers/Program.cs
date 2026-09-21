@@ -6,10 +6,10 @@ class Program
     {
         var (nameA, nameB) = PlayerSetup.GetPlayerNames();
 
-        Display.DisplayGrid(nameA, nameB);
+        Grid grid = Display.CreateGrid();
+        Display.DisplayInitialGrid(grid);
 
-        PlayerMove.DisplayTurn(nameA);
-
+        PlayGame.Play(grid, nameA, nameB);
 
     }
 }

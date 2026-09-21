@@ -2,14 +2,15 @@ namespace EAS_Project
 {
     public static class Display
     {
-        public static void DisplayGrid(string nameA, string nameB)
-        {
+        public static Grid CreateGrid()
+        { 
             Grid grid = new Grid(7, 7);
-            DisplayInitialGrid(grid);
+            return grid;
         }
 
-        public static void DisplayInitialGrid(Grid grid)
+        public static Grid DisplayInitialGrid(Grid grid)
         {
+
             DisplayColumnNumbers(grid.Columns);
 
             for (int i = 0; i < grid.Rows; i++)
@@ -20,6 +21,8 @@ namespace EAS_Project
                 }
                 Console.WriteLine();
             }
+
+            return grid;
         }
 
         public static void DisplayColumnNumbers(int columns)
