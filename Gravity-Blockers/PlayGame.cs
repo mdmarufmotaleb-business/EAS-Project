@@ -4,7 +4,7 @@ namespace EAS_Project
     {
         public static void Play(Grid grid, Player playerA, Player playerB){
             
-            Player currentPlayer = playerA; //Reference the original playerA, not a duplicate
+            Player currentPlayer = playerA; //References the original playerA, not a duplicate
             
             Display.DisplayTurnNameMessage(currentPlayer.name);
             Display.DisplayTurnMessage();
@@ -16,12 +16,12 @@ namespace EAS_Project
                 if (currentPlayer.movesRemaining == 3 || currentPlayer.movesRemaining == 2)
                 {
                     Display.DisplayMovePieceMessage();
-                    PlayGame.MakeMove(grid, currentPlayer, playerA, playerB, false); // First and second moves are always PIECES
+                    currentPlayer = PlayGame.MakeMove(grid, currentPlayer, playerA, playerB, false); // First and second moves are always PIECES
                 }
                 else if (currentPlayer.movesRemaining == 1)
                 {
                     Display.DisplayMoveBlockMessage();
-                    PlayGame.MakeMove(grid, currentPlayer, playerA, playerB, true); // Third move is always a BLOCK
+                    currentPlayer = PlayGame.MakeMove(grid, currentPlayer, playerA, playerB, true); // Third move is always a BLOCK
                 }
 
                 Display.DisplayGrid(grid);
@@ -29,19 +29,19 @@ namespace EAS_Project
 
         }
 
-        public static void SwitchPlayer(ref Player currentPlayer, Player playerA, Player playerB) //ref modifies original copy
+        public static void SwitchPlayer(ref Player currentPlayer, Player playerA, Player playerB) //ref modifies copy passed in
         {
             if (currentPlayer == playerA)
             {
                 currentPlayer = playerB;
             }
-            else
+            else if (currentPlayer == playerB)
             {
                 currentPlayer = playerA;
             }
         }
 
-        public static void MakeMove(Grid grid, Player currentPlayer, Player playerA, Player playerB, bool isBlock)
+        public static Player MakeMove(Grid grid, Player currentPlayer, Player playerA, Player playerB, bool isBlock)
         {
             Console.Write("\nAnswer: ");
             string? answer = Console.ReadLine();
@@ -73,14 +73,14 @@ namespace EAS_Project
                     currentPlayer.DecrementMoves();
                     grid.MakeMove(column, currentPlayer, playerA, playerB, isBlock);
 
-                    // Blocks are always dropped last, then switch players
+                    Display.DisplayDropSuccessMessage(currentPlayer.name, column, isBlock);
+
                     if (isBlock)
                     {
                         currentPlayer.ResetMoves();
                         PlayGame.SwitchPlayer(ref currentPlayer, playerA, playerB);
                     }
 
-                    Display.DisplayDropSuccessMessage(currentPlayer.name, column, isBlock);
                     Display.DisplayTurnNameMessage(currentPlayer.name);
                     Display.DisplayTurnMessage();
                 }
@@ -94,6 +94,7 @@ namespace EAS_Project
             {
                 Display.DisplayInvalidInputMessage(currentPlayer.name);
             }
+            return currentPlayer;
         }
     }
 }

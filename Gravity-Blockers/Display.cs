@@ -52,6 +52,7 @@ namespace EAS_Project
         public static void DisplayFullColumnMessage(int column)
         {
             Console.WriteLine($"\nColumn {column} is full. Please choose another column");
+            Thread.Sleep(1000);
         }
 
         public static void DisplayTurnMessage()
