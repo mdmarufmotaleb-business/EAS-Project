@@ -56,11 +56,43 @@ namespace EAS_Project
         }
 
 
-        public bool IsValidMove(int inputColumn)
+        public bool IsValidMove(int inputColumn, bool isBlock)
         {
             int col = inputColumn - 1;
-            return Cells[0, col] == "[ ]"; // Checks if the top cell of the column is empty
+
+            if (!isBlock)
+            {
+                return Cells[0, col] == "[ ]";
+            }
+            else
+            {
+                // If the block was dropped, which row would it land?
+                int landingRow = -1;
+
+                for (int r = 0; r < Rows; r++)
+                {
+                    if (Cells[r, col] != "[ ]")
+                    {
+                        landingRow = r - 1;
+                        break;
+                    }
+                }
+
+                // If the column is empty, the block will land at the bottom
+                if (landingRow == -1)
+                {
+                    landingRow = Rows - 1;
+                }
+
+                // At least one neighbour must be a valid piece (not a block)
+                bool up    = landingRow > 0 && (Cells[landingRow - 1, col] == "[A]" || Cells[landingRow - 1, col] == "[B]");
+                bool left  = col > 0 && (Cells[landingRow, col - 1] == "[A]" || Cells[landingRow, col - 1] == "[B]");
+                bool right = col < Columns - 1 && (Cells[landingRow, col + 1] == "[A]" || Cells[landingRow, col + 1] == "[B]");
+
+                return up || left || right;
+            }
         }
+
 
         public bool IsValidColumn(int inputColumn)
         {

@@ -82,9 +82,8 @@ namespace EAS_Project
                 if (!grid.IsValidColumn(column))
                 {
                     Display.DisplayInvalidColumnMessage(column, grid.Columns);
-                }
-                
-                else if (grid.IsValidMove(column))
+                } 
+                else if (grid.IsValidMove(column, isBlock))
                 {
                     currentPlayer.DecrementMoves();
                     grid.MakeMove(column, currentPlayer, playerA, playerB, isBlock);
@@ -99,6 +98,11 @@ namespace EAS_Project
 
                     Display.DisplayTurnNameMessage(currentPlayer.name);
                     Display.DisplayTurnMessage();
+                }
+
+                else if (isBlock && !grid.IsValidMove(column, isBlock))
+                {
+                    Display.DisplayInvalidBlockMessage();
                 }
                 
                 else

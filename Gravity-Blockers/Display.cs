@@ -144,5 +144,11 @@ namespace EAS_Project
         {
             Console.WriteLine("\nThe game is a draw!");
         }
+
+        public static void DisplayInvalidBlockMessage()
+        {
+            Console.WriteLine("\nInvalid block placement. A block must be placed adjacent to at least one piece.");
+            Thread.Sleep(1000);
+        }
     }
 }
