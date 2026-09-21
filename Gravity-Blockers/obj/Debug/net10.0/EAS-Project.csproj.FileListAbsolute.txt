@@ -1,0 +1,15 @@
+C:\Users\mdmar\Downloads\EAS Project\EAS-Project\Gravity-Blockers\bin\Debug\net10.0\EAS-Project.exe
+C:\Users\mdmar\Downloads\EAS Project\EAS-Project\Gravity-Blockers\bin\Debug\net10.0\EAS-Project.deps.json
+C:\Users\mdmar\Downloads\EAS Project\EAS-Project\Gravity-Blockers\bin\Debug\net10.0\EAS-Project.runtimeconfig.json
+C:\Users\mdmar\Downloads\EAS Project\EAS-Project\Gravity-Blockers\bin\Debug\net10.0\EAS-Project.dll
+C:\Users\mdmar\Downloads\EAS Project\EAS-Project\Gravity-Blockers\bin\Debug\net10.0\EAS-Project.pdb
+C:\Users\mdmar\Downloads\EAS Project\EAS-Project\Gravity-Blockers\obj\Debug\net10.0\EAS-Project.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mdmar\Downloads\EAS Project\EAS-Project\Gravity-Blockers\obj\Debug\net10.0\EAS-Project.AssemblyInfoInputs.cache
+C:\Users\mdmar\Downloads\EAS Project\EAS-Project\Gravity-Blockers\obj\Debug\net10.0\EAS-Project.AssemblyInfo.cs
+C:\Users\mdmar\Downloads\EAS Project\EAS-Project\Gravity-Blockers\obj\Debug\net10.0\EAS-Project.csproj.CoreCompileInputs.cache
+C:\Users\mdmar\Downloads\EAS Project\EAS-Project\Gravity-Blockers\obj\Debug\net10.0\EAS-Project.sourcelink.json
+C:\Users\mdmar\Downloads\EAS Project\EAS-Project\Gravity-Blockers\obj\Debug\net10.0\EAS-Project.dll
+C:\Users\mdmar\Downloads\EAS Project\EAS-Project\Gravity-Blockers\obj\Debug\net10.0\refint\EAS-Project.dll
+C:\Users\mdmar\Downloads\EAS Project\EAS-Project\Gravity-Blockers\obj\Debug\net10.0\EAS-Project.pdb
+C:\Users\mdmar\Downloads\EAS Project\EAS-Project\Gravity-Blockers\obj\Debug\net10.0\EAS-Project.genruntimeconfig.cache
+C:\Users\mdmar\Downloads\EAS Project\EAS-Project\Gravity-Blockers\obj\Debug\net10.0\ref\EAS-Project.dll
