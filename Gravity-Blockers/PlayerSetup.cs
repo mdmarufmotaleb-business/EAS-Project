@@ -13,6 +13,10 @@ namespace EAS_Project
             Console.WriteLine($"\nWelcome {nameA} and {nameB}! We will begin shortly...\n");
             Thread.Sleep(3000);
 
+            Console.Clear();
+
+            Console.WriteLine("\n\nCONNECT 4 - GRAVITY BLOCKERS\n");
+
 
             return (nameA, nameB);
         }

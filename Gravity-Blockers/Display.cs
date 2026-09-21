@@ -4,15 +4,17 @@ namespace EAS_Project
     {
         public static void DisplayGrid(string nameA, string nameB)
         {
-            DisplayInitialGrid(7, 7);
+            Grid grid = new Grid(7, 7);
+            DisplayInitialGrid(grid);
         }
 
-        public static void DisplayInitialGrid(int rows, int columns)
+        public static void DisplayInitialGrid(Grid grid)
         {
-            DisplayColumnNumbers(columns);
-            for (int i = 0; i < rows; i++)
+            DisplayColumnNumbers(grid.Columns);
+
+            for (int i = 0; i < grid.Rows; i++)
             {
-                for (int j = 0; j < columns; j++)
+                for (int j = 0; j < grid.Columns; j++)
                 {
                     Console.Write("[ ] ");
                 }
