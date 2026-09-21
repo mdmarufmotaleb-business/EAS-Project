@@ -15,7 +15,7 @@ namespace EAS_Project
 
             Console.Clear();
 
-            Console.WriteLine("\n\nCONNECT 4 - GRAVITY BLOCKERS\n");
+            Console.WriteLine("\n\n\nCONNECT 4 - GRAVITY BLOCKERS");
 
 
             return (nameA, nameB);

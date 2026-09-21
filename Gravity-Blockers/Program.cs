@@ -6,7 +6,10 @@ class Program
     {
         var (nameA, nameB) = PlayerSetup.GetPlayerNames();
 
-        //Console.WriteLine($" {nameA} & {nameB}");
         Display.DisplayGrid(nameA, nameB);
+
+        PlayerMove.DisplayTurn(nameA);
+
+
     }
 }
