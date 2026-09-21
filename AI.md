@@ -14,7 +14,7 @@ asked to make it capitalised it suggested .ToUpper() but that turned everythign 
 - make the grid object skeleton. i will edit myself and add functiosn as needed
 
 
-
+add gitinore
 
 
 Testing:
