@@ -6,7 +6,7 @@ namespace EAS_Project
             
             string currentPlayer = nameA;
             
-            Display.DisplayTurn(currentPlayer);
+            Display.DisplayTurnNameMessage(currentPlayer);
             Display.DisplayTurnMessage();
 
             while (true)
@@ -24,7 +24,7 @@ namespace EAS_Project
                     Display.DisplayRotationMessage("LEFT");
                     Display.DisplayTurnMessage();
                 }
-                else if (int.TryParse(answer, out int column))
+                else if (int.TryParse(answer, out int column)) //If its a valid integer
                 {
                     
                     if (!grid.IsValidColumn(column))
@@ -46,7 +46,7 @@ namespace EAS_Project
                 }
                 else
                 {
-                    Display.DisplayInvalidInputMessage();
+                    Display.DisplayInvalidInputMessage(currentPlayer);
                 }
 
                 Display.DisplayGrid(grid);

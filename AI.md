@@ -23,6 +23,7 @@ add gitinore (what files ti ignore and remove previously tracked junk files)
 
 add logic to rotate right and left
 
+leaqrnt static class vs non static
 learnt get ; private set is needed to make changes to variable
 
 Testing:

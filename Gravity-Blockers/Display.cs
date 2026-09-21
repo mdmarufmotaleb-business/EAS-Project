@@ -60,29 +60,34 @@ namespace EAS_Project
             Console.WriteLine("Or type 'RIGHT'/'LEFT' to rotate the board\n");
         }
 
-        public static void DisplayTurn(string name)
+        public static void DisplayTurnNameMessage(string name)
         {
-            Console.WriteLine($"\n{name}'s turn\n");
+            Console.WriteLine($"\n{name}'s turn...");
+            Thread.Sleep(1000); 
         }
 
-        public static void DisplayInvalidInputMessage()
+        public static void DisplayInvalidInputMessage(string name)
         {
             Console.WriteLine("\nInvalid input, please try again");
+            Display.DisplayTurnNameMessage(name);
         }
 
         public static void DisplayDropSuccessMessage(string name, int column)
         {
             Console.WriteLine($"\n{name} has dropped a piece in column {column}");
+            Thread.Sleep(1000);
         }
 
         public static void DisplayInvalidColumnMessage(int column, int maxColumns)
         {
             Console.WriteLine($"\nColumn {column} is invalid. Please choose a column between 1 and {maxColumns}");
+            Thread.Sleep(1000);
         }
 
         public static void DisplayRotationMessage(string direction)
         {
             Console.WriteLine($"\nThe grid has rotated {direction}");
+            Thread.Sleep(1000);
         }
     }
 }
