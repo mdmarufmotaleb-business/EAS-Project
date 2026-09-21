@@ -10,13 +10,15 @@ namespace EAS_Project
             string nameA = GetSinglePlayer("A");
             string nameB = GetSinglePlayer("B");
 
-            Console.WriteLine($"\nWelcome {nameA} and {nameB}! We will begin shortly...\n");
+            Player playerA = new Player(nameA);
+            Player playerB = new Player(nameB);
+
+            Console.WriteLine($"\nWelcome {playerA.name} and {playerB.name}! We will begin shortly...\n");
             Thread.Sleep(3000);
 
             Console.WriteLine("\n\n\nCONNECT 4 - GRAVITY BLOCKERS");
 
-
-            return (nameA, nameB);
+            return (playerA.name, playerB.name);
         }
 
         public static string GetSinglePlayer(string player)

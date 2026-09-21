@@ -23,7 +23,7 @@ add gitinore (what files ti ignore and remove previously tracked junk files)
 
 add logic to rotate right and left
 
-leaqrnt static class vs non static
+leaqrnt static class vs non static. chose to create a new player class (nomn static) so i dont wont have to re format the already existign static class. woudl be more efficient if i did if i had more time
 learnt get ; private set is needed to make changes to variable
 
 Testing:
