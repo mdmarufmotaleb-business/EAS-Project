@@ -3,8 +3,11 @@ namespace EAS_Project
     public static class PlayGame
     {
         public static void Play(Grid grid, string nameA, string nameB){
-            PlayGame.DisplayTurn(nameA);
-            PlayGame.DisplayTurnMessage();
+            
+            string currentPlayer = nameA;
+            
+            Display.DisplayTurn(currentPlayer);
+            Display.DisplayTurnMessage();
 
             while (true)
             {
@@ -13,37 +16,37 @@ namespace EAS_Project
 
                 if (answer == "RIGHT"){
                     grid.RotateRight();
-                    Console.WriteLine("\nThe grid has rotated RIGHT");
-                    PlayGame.DisplayTurnMessage();
+                    Display.DisplayRotationMessage("RIGHT");
+                    Display.DisplayTurnMessage();
                 }
                 else if (answer == "LEFT"){
-                    Console.WriteLine("\nThe grid has rotated LEFT");
                     grid.RotateLeft();
-                    PlayGame.DisplayTurnMessage();
+                    Display.DisplayRotationMessage("LEFT");
+                    Display.DisplayTurnMessage();
                 }
                 else if (int.TryParse(answer, out int column))
                 {
                     
                     if (!grid.IsValidColumn(column))
                     {
-                        Console.WriteLine($"\nColumn {column} is invalid. Please choose a column between 1 and {grid.Columns}");
+                        Display.DisplayInvalidColumnMessage(column, grid.Columns);
                     }
                     
                     else if (grid.IsValidMove(column))
                     {
                         grid.MakeMove(column);
-                        Console.WriteLine($"\n{nameA} has dropped a piece in column {column}");
-                        PlayGame.DisplayTurnMessage();
+                        Display.DisplayDropSuccessMessage(currentPlayer, column);
+                        Display.DisplayTurnMessage();
                     }
                     
                     else
                     {
-                        Console.WriteLine($"\nColumn {column} is unavailable. Please choose another column");
+                        Display.DisplayFullColumnMessage(column);
                     }
                 }
                 else
                 {
-                    Console.WriteLine("\nInvalid input, please try again");
+                    Display.DisplayInvalidInputMessage();
                 }
 
                 Display.DisplayGrid(grid);
@@ -51,19 +54,6 @@ namespace EAS_Project
             }
 
         }
-
-        public static void DisplayTurn(string name)
-        {
-            Console.WriteLine($"\n{name}'s turn\n");
-        }
-
-        public static void DisplayTurnMessage()
-        {
-            Console.WriteLine("\nPlease select a valid column number to drop your piece");
-            Console.WriteLine("Or type 'RIGHT'/'LEFT' to rotate the board\n");
-        }
-
     }
-
 
 }

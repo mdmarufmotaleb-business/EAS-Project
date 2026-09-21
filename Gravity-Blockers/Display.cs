@@ -48,5 +48,41 @@ namespace EAS_Project
                 Console.WriteLine();
             }
         }
+
+        public static void DisplayFullColumnMessage(int column)
+        {
+            Console.WriteLine($"\nColumn {column} is full. Please choose another column");
+        }
+
+        public static void DisplayTurnMessage()
+        {
+            Console.WriteLine("\nPlease select a valid column number to drop your piece");
+            Console.WriteLine("Or type 'RIGHT'/'LEFT' to rotate the board\n");
+        }
+
+        public static void DisplayTurn(string name)
+        {
+            Console.WriteLine($"\n{name}'s turn\n");
+        }
+
+        public static void DisplayInvalidInputMessage()
+        {
+            Console.WriteLine("\nInvalid input, please try again");
+        }
+
+        public static void DisplayDropSuccessMessage(string name, int column)
+        {
+            Console.WriteLine($"\n{name} has dropped a piece in column {column}");
+        }
+
+        public static void DisplayInvalidColumnMessage(int column, int maxColumns)
+        {
+            Console.WriteLine($"\nColumn {column} is invalid. Please choose a column between 1 and {maxColumns}");
+        }
+
+        public static void DisplayRotationMessage(string direction)
+        {
+            Console.WriteLine($"\nThe grid has rotated {direction}");
+        }
     }
 }
