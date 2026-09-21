@@ -56,8 +56,8 @@ namespace EAS_Project
 
         public static void DisplayTurnMessage()
         {
-            Console.WriteLine("\nPlease select a valid column number to drop your piece");
-            Console.WriteLine("Or type 'RIGHT'/'LEFT' to rotate the board\n");
+            Console.WriteLine("\nPlease select a valid column number");
+            Console.WriteLine("\nOr type 'RIGHT'/'LEFT' to rotate the board");
         }
 
         public static void DisplayTurnNameMessage(string name)
@@ -72,9 +72,16 @@ namespace EAS_Project
             Display.DisplayTurnNameMessage(name);
         }
 
-        public static void DisplayDropSuccessMessage(string name, int column)
+        public static void DisplayDropSuccessMessage(string name, int column, bool isBlock)
         {
-            Console.WriteLine($"\n{name} has dropped a piece in column {column}");
+            if (isBlock)
+            {
+                Console.WriteLine($"\n{name} has dropped a block in column {column}");
+            }
+            else
+            {
+                Console.WriteLine($"\n{name} has dropped a piece in column {column}");
+            }
             Thread.Sleep(1000);
         }
 
@@ -110,6 +117,21 @@ namespace EAS_Project
         public static void DisplayEmptyNameMessage(string player)
         {
             Console.WriteLine($"\nPlayer {player}'s name cannot be empty. Please enter a valid name.");
+        }
+
+        public static void DisplayMovesRemainingMessage(Player player)
+        {
+            Console.WriteLine($"\n{player.name} has {player.movesRemaining} moves remaining");
+        }
+
+        public static void DisplayMovePieceMessage()
+        {
+            Console.WriteLine("\nYou are dropping a PIECE");
+        }
+
+        public static void DisplayMoveBlockMessage()
+        {
+            Console.WriteLine("\nYou are dropping a BLOCK");
         }
     }
 }

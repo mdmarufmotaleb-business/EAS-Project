@@ -23,21 +23,36 @@ namespace EAS_Project
             }
         }
 
-        public void MakeMove(int inputColumn)
-        // drops the piece down
+        public void MakeMove(int inputColumn, Player currentPlayer, Player playerA, Player playerB, bool isBlock)
         {
+            string piece;
+
+            if (isBlock)
+            {
+                piece = "[X]";
+            }
+            else if (currentPlayer == playerA)
+            {
+                piece = "[A]";
+            }
+            else
+            {
+                piece = "[B]";
+            }
+
             int col = inputColumn - 1;
 
+            // Keeps dropping the piece as far as it goes in selected column
             for (int r = 0; r < Rows; r++)
             {
                 if (Cells[r, col] != "[ ]")
                 {
-                    Cells[r - 1, col] = "[X]";
+                    Cells[r - 1, col] = piece;
                     return;
                 }
             }
 
-            Cells[Rows - 1, col] = "[X]";
+            Cells[Rows - 1, col] = piece;
         }
 
 
