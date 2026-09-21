@@ -2,10 +2,10 @@ namespace EAS_Project
 {
     public class Grid
     {
-        public int Rows { get; }
-        public int Columns { get; }
+        public int Rows { get; private set; }
+        public int Columns { get; private set; }
 
-        public string[,] Cells { get; } //2D array of strings
+        public string[,] Cells { get; private set;} //2D array of strings
 
         public Grid(int rows, int columns)
         {
@@ -52,23 +52,41 @@ namespace EAS_Project
             return inputColumn >= 1 && inputColumn <= Columns;
         }
 
-        // public void RotateRight()
-        // {
-        //     string[,] newCells = new string[Columns, Rows];
+        public void RotateRight()
+        {
+            string[,] newCells = new string[Columns, Rows];
 
-        //     for (int r = 0; r < Rows; r++)
-        //     {
-        //         for (int c = 0; c < Columns; c++)
-        //         {
-        //             newCells[c, Rows - 1 - r] = Cells[r, c];
-        //         }
-        //     }
+            for (int r = 0; r < Rows; r++)
+            {
+                for (int c = 0; c < Columns; c++)
+                {
+                    newCells[c, Rows - 1 - r] = Cells[r, c];
+                }
+            }
 
-        //     Cells = newCells;
-        //     int temp = Rows;
-        //     Rows = Columns;
-        //     Columns = temp;
-        // }
+            Cells = newCells;
+            int temp = Rows;
+            Rows = Columns;
+            Columns = temp;
+        }
+
+        public void RotateLeft()
+        {
+            string[,] newCells = new string[Columns, Rows];
+
+            for (int r = 0; r < Rows; r++)
+            {
+                for (int c = 0; c < Columns; c++)
+                {
+                    newCells[Columns - 1 - c, r] = Cells[r, c];
+                }
+            }
+
+            Cells = newCells;
+            int temp = Rows;
+            Rows = Columns;
+            Columns = temp;
+        }
     }
 
 }

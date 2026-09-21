@@ -4,7 +4,7 @@ namespace EAS_Project
     {
         public static Grid CreateGrid()
         { 
-            Grid grid = new Grid(7, 7);
+            Grid grid = new Grid(5, 7);
             return grid;
         }
 
@@ -33,6 +33,20 @@ namespace EAS_Project
                 Console.Write($" {j + 1}  ");
             }
             Console.WriteLine();
+        }
+
+        public static void DisplayGrid(Grid grid)
+        {
+            DisplayColumnNumbers(grid.Columns);
+
+            for (int i = 0; i < grid.Rows; i++)
+            {
+                for (int j = 0; j < grid.Columns; j++)
+                {
+                    Console.Write($"{grid.Cells[i, j]} ");
+                }
+                Console.WriteLine();
+            }
         }
     }
 }

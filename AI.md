@@ -16,6 +16,9 @@ asked to make it capitalised it suggested .ToUpper() but that turned everythign 
 
 add gitinore (what files ti ignore and remove previously tracked junk files)
 
+add logic to rotate right and left
+
+learnt get ; private set is needed to make changes to variable
 
 Testing:
 blank names. loop until name is not blank

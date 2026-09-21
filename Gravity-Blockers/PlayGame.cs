@@ -9,13 +9,15 @@ namespace EAS_Project
             string? answer = Console.ReadLine();
 
             if (answer == "RIGHT"){
-                Console.WriteLine("The grid has rotated RIGHT");
-                //grid.RotateRight();
+                grid.RotateRight();
+                Console.WriteLine("\nThe grid has rotated RIGHT\n");
             }
             else if (answer == "LEFT"){
-                Console.WriteLine("The grid has rotated LEFT");
-                //grid.RotateLeft();
+                Console.WriteLine("\nThe grid has rotated LEFT\n");
+                grid.RotateLeft();
             }
+
+            Display.DisplayGrid(grid);
 
             
         }
