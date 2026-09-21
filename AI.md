@@ -10,7 +10,7 @@ used ai for:
 
 asked to make it capitalised it suggested .ToUpper() but that turned everythign capital. solution it gave to make just firts letter capital was too convoluted so i ignored
 
-
+.
 - make the grid object skeleton. i will edit myself and add functiosn as needed
 
 learnt to add while true loop - only needed syntax 
