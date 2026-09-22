@@ -8,7 +8,7 @@ namespace EAS_Project
         }
 
         // Checks if the bot can win this round by simulating every possible move
-        public (bool canWin, Grid winningGrid) canWin(
+        public static (bool canWin, Grid? winningGrid) canWin(
             Grid grid, 
             string piece, 
             Player currentPlayer, 
@@ -73,9 +73,8 @@ namespace EAS_Project
         }
 
 
-
         // Returns all possible grids after 1 valid move (including 4 rotations)
-        public Grid[] afterOneValidMove(Grid grid, Player currentPlayer, Player playerA, Player playerB, bool isBlock)
+        public static Grid[] afterOneValidMove(Grid grid, Player currentPlayer, Player playerA, Player playerB, bool isBlock)
         {
             List<Grid> results = new List<Grid>();
 

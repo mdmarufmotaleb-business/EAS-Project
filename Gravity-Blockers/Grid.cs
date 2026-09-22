@@ -224,5 +224,21 @@ namespace EAS_Project
             return true;
         }
 
+        public Grid Clone()
+        {
+            Grid copy = new Grid(this.Rows, this.Columns);
+
+            for (int r = 0; r < Rows; r++)
+            {
+                for (int c = 0; c < Columns; c++)
+                {
+                    copy.Cells[r, c] = this.Cells[r, c];
+                }
+            }
+
+            return copy;
+        }
+
+
     }
 }
