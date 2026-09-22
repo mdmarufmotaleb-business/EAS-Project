@@ -62,6 +62,9 @@ namespace EAS_Project
                         Display.DisplayTurnNameMessage(currentPlayer.name);
                         Display.DisplayTurnMessage();
                         currentPlayer.DecrementMoves();
+
+                        currentPlayer.ResetMoves();
+                        PlayGame.SwitchPlayer(ref currentPlayer, playerA, playerB);
                     }
                 
                 }
