@@ -8,19 +8,23 @@ namespace EAS_Project
             String piece = Grid.CheckPiece(currentPlayer, playerA, playerB, isBlock);
 
             // First priority - WIN
-            if Bot.canWin(grid, piece, currentPlayer, playerA, playerB, remainingMoves)
+            (bool canWin, Grid? winningGrid) result = Bot.canWin(grid, piece, currentPlayer, playerA, playerB, remainingMoves);
+            
+            if (result.canWin)
             {
                 continue;// add logic to make this move
                 return true;
             }
+
+            // Second priority - STOP THEM FROM WINNING
             
             // Needed to simulate if opponent can win
+            result = Bot.canWin(grid, piece, currentPlayer, playerA, playerB, remainingMoves);
             string newPiece = (piece == "[A]") ? "[B]" :
                 (piece == "[B]") ? "[A]" :
                 piece;
-            
-            // Second priority - STOP THEM FROM WINNING
-            if Bot.canWin(grid, piece, currentPlayer, playerA, playerB, remainingMoves)
+
+            if (result.canWin)
             {
                 continue;// add logic to make this move
                 return true;
@@ -29,38 +33,83 @@ namespace EAS_Project
             // Third priority - build on existing pieces
             // Next move should match 3 if possible, else match 2
 
-            Grid[] level = Bot.priorityMoves(grid, currentPlayer, playerA, playerB, isBlock);
+            (Grid grid, int column)[] level = Bot.priorityMoves(grid, currentPlayer, playerA, playerB, isBlock);
 
             if (level.Length > 0)
             {
-                continue; // add logic later 
-                return true;
+                continue; 
             }
+
             // Fourth priority - add a move randomly
             else
             {
-                
-                continue; //add logic later 
-                return true;
+                return Bot.makeRandomMove(grid, currentPlayer, playerA, playerB, isBlock);
             }
 
-
-
-
+            return false;
 
         }
 
-        // Returns a list of all possible moves filtered by best value
-        public static Grid[] priorityMoves(Grid grid, Player currentPlayer, Player playerA, Player playerB, bool isBlock)
+        // Given a selection of moves, choose a random one and make it
+        public static bool makeRandomMoveBySelection(Grid grid, Player currentPlayer, Player playerA, Player playerB, bool isBlock, (Grid int)[] selection)
         {
-            Grid[] level = afterOneValidMove(grid, currentPlayer, playerA, playerB, isBlock);
 
-            // Try MATCH‑3 first
-            List<Grid> match3List = new List<Grid>();
-            foreach (Grid g in level)
+        }
+
+        public static bool makeRandomMove(Grid grid, Player currentPlayer, Player playerA, Player playerB, bool isBlock)
+        {
+            // Try up to 4 orientations (original + 3 rotations)
+            for (int i = 0; i < 4; i++)
+            {
+                // Build list of columns
+                List<int> columns = new List<int>();
+                for (int c = 0; c < grid.Columns; c++)
+                {
+                    columns.Add(c + 1); // 1-based
+                }
+
+                // Shuffle columns
+                Random rng = new Random();
+                columns = columns.OrderBy(x => rng.Next()).ToList();
+
+                // Try each column in random order
+                foreach (int col in columns)
+                {
+                    if (grid.IsValidMove(col, isBlock))
+                    {
+                        grid.MakeMove(col, currentPlayer, playerA, playerB, isBlock);
+                        return true;
+                    }
+                }
+
+                // If no move was possible, rotate and try again
+                grid.RotateRight();
+            }
+
+            return false; // no move possible even after 4 rotations
+        }
+
+        // Returns a list of all possible moves filtered by best value
+        // Also includes column number of where to drop it
+        // Returns empty list if no moves are good value
+        public static (Grid grid, int column)[] priorityMoves(
+            Grid grid,
+            Player currentPlayer,
+            Player playerA,
+            Player playerB,
+            bool isBlock)
+        {
+            
+            (Grid grid, int column)[] level =
+                Bot.afterOneValidMove(grid, currentPlayer, playerA, playerB, isBlock);
+
+            // MATCH‑3 filtering
+            List<(Grid grid, int column)> match3List = new List<(Grid, int)>();
+
+            foreach ((Grid g, int col) in level)
             {
                 if (checkMatchThree(g, piece))
-                    match3List.Add(g);
+                    match3List.Add((g, col));
             }
 
             // If any match‑3 grids exist, keep only those
@@ -70,19 +119,20 @@ namespace EAS_Project
             }
             else
             {
-                // Otherwise try MATCH‑2
-                List<Grid> match2List = new List<Grid>();
-                foreach (Grid g in level)
+                // MATCH‑2 filtering
+                List<(Grid grid, int column)> match2List = new List<(Grid, int)>();
+
+                foreach ((Grid g, int col) in level)
                 {
                     if (checkMatchTwo(g, piece))
-                        match2List.Add(g);
+                        match2List.Add((g, col));
                 }
 
                 // If match‑2 exists, keep them; otherwise empty the list
                 if (match2List.Count > 0)
                     level = match2List.ToArray();
                 else
-                    level = Array.Empty<Grid>();
+                    level = Array.Empty<(Grid grid, int column)>();
             }
 
             return level;
@@ -106,9 +156,10 @@ namespace EAS_Project
             // Simulates 1 move in every possible direction and checks for the win
             if (remainingMoves == 2)
             {
-                Grid[] level = afterOneValidMove(grid, currentPlayer, playerA, playerB, false);
+                (Grid grid, int column)[] level = Bot.afterOneValidMove(grid, currentPlayer, playerA, playerB, false);
 
-                foreach (Grid g in level)
+
+                foreach ((Grid g, int col) in level)
                 {
                     if (g.CheckWin(g, piece))
                     {
@@ -117,6 +168,7 @@ namespace EAS_Project
                     }
                 }
 
+
                 return (false, null);
             }
 
@@ -124,15 +176,17 @@ namespace EAS_Project
             if (remainingMoves == 3)
             {
                 // first move: normal piece (no block)
-                Grid[] level1 = afterOneValidMove(grid, currentPlayer, playerA, playerB, false);
+                (Grid grid, int column)[] level1 = afterOneValidMove(grid, currentPlayer, playerA, playerB, false);
+
 
                 List<Grid[]> level2 = new List<Grid[]>();
 
-                foreach (Grid g in level1)
+                foreach ((Grid g, int col) in level1)
                 {
-                    Grid[] next = afterOneValidMove(g, currentPlayer, playerA, playerB, false);
+                    (Grid grid, int column)[] next = afterOneValidMove(g, currentPlayer, playerA, playerB, false);
                     level2.Add(next);
                 }
+
 
                 // check every grid produced at the end
                 foreach (Grid[] arr in level2)
@@ -154,11 +208,16 @@ namespace EAS_Project
         }
 
 
-        // Returns all possible grids after 1 valid move (including 4 rotations)
+        // Returns all possible grids after 1 valid move (including 4 rotations and column dropped in)
         // All returned grids are already rotated
-        public static Grid[] afterOneValidMove(Grid grid, Player currentPlayer, Player playerA, Player playerB, bool isBlock)
+        public static (Grid grid, int column)[] afterOneValidMove(
+            Grid grid,
+            Player currentPlayer,
+            Player playerA,
+            Player playerB,
+            bool isBlock)
         {
-            List<Grid> results = new List<Grid>();
+            List<(Grid grid, int column)> results = new List<(Grid, int)>();
 
             Grid workingGrid = grid; // Original grid
 
@@ -177,13 +236,16 @@ namespace EAS_Project
                     {
                         Grid newGrid = workingGrid.Clone();
                         newGrid.MakeMove(col, currentPlayer, playerA, playerB, isBlock);
-                        results.Add(newGrid);
+
+                        // Store BOTH the grid and the column used
+                        results.Add((newGrid, col));
                     }
                 }
             }
 
             return results.ToArray();
         }
+
 
         // Checks if 2 of the given pieces are in any row in the grid
         public bool checkMatchTwo(Grid grid, string piece)
