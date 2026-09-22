@@ -3,12 +3,12 @@ namespace EAS_Project
     public static class Bot
     {
         // Returns true after a move has been made
-        public static bool MakePieceMove(Grid grid, Player currentPlayer, Player playerA, Player playerB, int remainingMoves, bool isBlock)
+        public static bool MakeMove(Grid grid, Player currentPlayer, Player playerA, Player playerB, int remainingMoves, bool isBlock)
         {
             String piece = Grid.CheckPiece(currentPlayer, playerA, playerB, isBlock);
 
             // First priority - WIN
-            (bool canWin, Grid? winningGrid, int rotations, int column) result = Bot.canWin(grid, piece, currentPlayer, playerA, playerB, remainingMoves);
+            (bool canWin, Grid? winningGrid, int? rotations, int? column) result = Bot.canWin(grid, piece, currentPlayer, playerA, playerB, remainingMoves);
             
             if (result.canWin)
             {
@@ -22,13 +22,13 @@ namespace EAS_Project
 
                 // Now make the winning move
                 grid.MakeMove(
-                    result.column,
+                    result.column.Value,
                     currentPlayer,
                     playerA,
                     playerB,
                     isBlock
                 );
-                DisplayDropSuccessMessage("ROBOT", result.column, isBlock);
+                Display.DisplayDropSuccessMessage("ROBOT", result.column.Value, isBlock);
                 
                 return true;
             }
@@ -54,13 +54,13 @@ namespace EAS_Project
 
                 // Stop them from winning
                 grid.MakeMove(
-                    result.column,
+                    result.column.Value,
                     currentPlayer,
                     playerA,
                     playerB,
                     isBlock
                 );
-                DisplayDropSuccessMessage("ROBOT", result.column, isBlock);
+                Display.DisplayDropSuccessMessage("ROBOT", result.column.Value, isBlock);
                 
                 return true;
             }
@@ -102,7 +102,7 @@ namespace EAS_Project
                     playerB,
                     isBlock
                 );
-                Display.DisplayDropSuccessMessage("ROBOT", column, isBlock);
+                Display.DisplayDropSuccessMessage("ROBOT", gridRightColumn.column, isBlock);
                 
                 return true;
             }
@@ -203,7 +203,7 @@ namespace EAS_Project
                 // If no move was possible, rotate and try again
                 grid.RotateRight();
                 Display.DisplayRotationMessage("RIGHT");
-                Display.DisplayGrid(grid)
+                Display.DisplayGrid(grid);
             }
 
             return false; // no move possible even after 4 rotations

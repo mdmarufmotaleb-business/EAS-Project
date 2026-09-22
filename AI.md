@@ -22,6 +22,8 @@ learnt continue cant be used in ifs, only loops
 
 'Grid' does not contain a definition for 'Clone' and no accessible extension method 'Clone' accepting a first argument of type 'Grid' could be found (are you missing a using directive or an assembly reference?) - problem is clien method isnt built in we had to make one
 
+converting int? to int errors in tuples add .value to end
+
 learnt to add 
 
 big problem. function A doesnt work propertly becausr it relies on fucntion B. if i change function B then functiomns C, D, E stop working. the original implementaiton was buggy. need to make a dpublicate function of B thats slightly differnt to the original so A can use it

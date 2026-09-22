@@ -38,7 +38,10 @@ namespace EAS_Project
                     }
                     else
                     {
-                        continue; // Placeholder for bot logic
+                        Bot.MakeMove(grid, currentPlayer, playerA, playerB, currentPlayer.movesRemaining, false);
+
+                        Display.DisplayTurnNameMessage(currentPlayer.name);
+                        Display.DisplayTurnMessage();
                     }
                     
                 }
@@ -52,7 +55,10 @@ namespace EAS_Project
                     }
                     else
                     {
-                        continue; // Placeholder for bot logic
+                        Bot.MakeMove(grid, currentPlayer, playerA, playerB, currentPlayer.movesRemaining, true);
+
+                        Display.DisplayTurnNameMessage(currentPlayer.name);
+                        Display.DisplayTurnMessage();
                     }
                 
                 }
