@@ -1,20 +1,35 @@
+# Build folders (recursive)
 bin/
 obj/
-*.user
-*.suo
-*.cache
-*.pdb
-*.mdb
-*.log
-*.db
-*.bak
-*.tmp
-*.swp
-*.DS_Store
-*.exe
-*.dll
-*.json
-*.tlog
-*.lastcodeanalysissucceeded
-*.lastcodeanalysisfailed
 TestResult*/
+
+# User-specific files
+**/*.user
+**/*.suo
+
+# Cache + temp
+**/*.cache
+**/*.tmp
+**/*.swp
+**/*.tlog
+
+# Debug + build artifacts
+**/*.pdb
+**/*.mdb
+**/*.log
+**/*.db
+**/*.bak
+
+# OS junk
+**/.DS_Store
+
+# Executables + libraries
+**/*.exe
+**/*.dll
+
+# JSON files created by build tools
+**/*.json
+
+# Code analysis
+**/*.lastcodeanalysissucceeded
+**/*.lastcodeanalysisfailed

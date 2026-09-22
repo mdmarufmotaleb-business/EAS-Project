@@ -4,7 +4,7 @@ namespace EAS_Project
     {
         public static Grid CreateGrid()
         { 
-            Grid grid = new Grid(5, 7);
+            Grid grid = new Grid(6, 7);
             return grid;
         }
 
