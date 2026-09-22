@@ -16,12 +16,12 @@ Players can either play against each other or the built in Robot.
 To open the application:
 
 - Navigate to **EAS-Project\Gravity-Blockers**
-- Open terminal and type **dotnet run** (ensure latest version of dotnet-sdk is installed)
+- Open terminal and type "**dotnet run**" (ensure latest version of dotnet-sdk is installed)
 
 To run unit tests:
 
 - Navigate to **EAS-Project\Gravity-Blockers.Tests**
-- Open terminal and type **dotnet test**
+- Open terminal and type "**dotnet test**"
 
 To play the game:
 
