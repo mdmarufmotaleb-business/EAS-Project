@@ -18,11 +18,13 @@ ai help for:
 
 learnty looping through a toople
 
+learnt continue cant be used in ifs, only loops
 
 'Grid' does not contain a definition for 'Clone' and no accessible extension method 'Clone' accepting a first argument of type 'Grid' could be found (are you missing a using directive or an assembly reference?) - problem is clien method isnt built in we had to make one
 
-learnt to add while true loop - only needed syntax 
+learnt to add 
 
+big problem. function A doesnt work propertly becausr it relies on fucntion B. if i change function B then functiomns C, D, E stop working. the original implementaiton was buggy. need to make a dpublicate function of B thats slightly differnt to the original so A can use it
 leanr synatx for many things. kknew logic
 
 

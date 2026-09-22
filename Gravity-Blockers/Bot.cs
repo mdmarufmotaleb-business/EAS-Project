@@ -8,17 +8,35 @@ namespace EAS_Project
             String piece = Grid.CheckPiece(currentPlayer, playerA, playerB, isBlock);
 
             // First priority - WIN
-            (bool canWin, Grid? winningGrid) result = Bot.canWin(grid, piece, currentPlayer, playerA, playerB, remainingMoves);
+            (bool canWin, Grid? winningGrid, int rotations, int column) result = Bot.canWin(grid, piece, currentPlayer, playerA, playerB, remainingMoves);
             
             if (result.canWin)
             {
-                //continue;// add logic to make this move
+                // Rotate the original grid RIGHT result.rotations times
+                for (int i = 0; i < result.rotations; i++)
+                {
+                    grid.RotateRight();
+                    Display.DisplayTurnNameMessage("RIGHT");
+                    Display.DisplayGrid(grid);
+                }
+
+                // Now make the winning move
+                grid.MakeMove(
+                    result.column,
+                    currentPlayer,
+                    playerA,
+                    playerB,
+                    isBlock
+                );
+                DisplayDropSuccessMessage("ROBOT", result.column, isBlock);
+                
                 return true;
             }
 
+
             // Second priority - STOP THEM FROM WINNING
             
-            // Needed to simulate if opponent can win
+            // Needed to simulate if opponent can also win
             result = Bot.canWin(grid, piece, currentPlayer, playerA, playerB, remainingMoves);
             string newPiece = (piece == "[A]") ? "[B]" :
                 (piece == "[B]") ? "[A]" :
@@ -26,7 +44,24 @@ namespace EAS_Project
 
             if (result.canWin)
             {
-                //continue;// add logic to make this move
+                // Rotate the original grid RIGHT result.rotations times
+                for (int i = 0; i < result.rotations; i++)
+                {
+                    grid.RotateRight();
+                    Display.DisplayTurnNameMessage("RIGHT");
+                    Display.DisplayGrid(grid);
+                }
+
+                // Stop them from winning
+                grid.MakeMove(
+                    result.column,
+                    currentPlayer,
+                    playerA,
+                    playerB,
+                    isBlock
+                );
+                DisplayDropSuccessMessage("ROBOT", result.column, isBlock);
+                
                 return true;
             }
 
@@ -55,6 +90,8 @@ namespace EAS_Project
                 for (int i = 0; i < gridRightRotation.totalRotations; i++)
                 {
                     grid.RotateLeft();
+                    Display.DisplayRotationMessage("LEFT");
+                    Display.DisplayGrid(grid);
                 }
 
                 //Drop it in
@@ -65,6 +102,8 @@ namespace EAS_Project
                     playerB,
                     isBlock
                 );
+                Display.DisplayDropSuccessMessage("ROBOT", column, isBlock);
+                
                 return true;
             }
 
@@ -156,12 +195,15 @@ namespace EAS_Project
                     if (grid.IsValidMove(col, isBlock))
                     {
                         grid.MakeMove(col, currentPlayer, playerA, playerB, isBlock);
+                        Display.DisplayDropSuccessMessage("ROBOT", col, isBlock);
                         return true;
                     }
                 }
 
                 // If no move was possible, rotate and try again
                 grid.RotateRight();
+                Display.DisplayRotationMessage("RIGHT");
+                Display.DisplayGrid(grid)
             }
 
             return false; // no move possible even after 4 rotations
@@ -179,12 +221,12 @@ namespace EAS_Project
             bool isBlock)
         {
             
-            (Grid simulatedGrid, int column)[] level =
+            (Grid simulatedGrid, int column, int rotations)[] level =
                 Bot.afterOneValidMove(grid, currentPlayer, playerA, playerB, isBlock);
 
             List<(Grid grid, int column)> match3List = new List<(Grid, int)>();
 
-            foreach ((Grid simGrid, int col) in level)
+            foreach ((Grid simGrid, int col, int rotations) in level)
             {
                 Grid rotatedOriginal = grid.Clone();
 
@@ -229,7 +271,7 @@ namespace EAS_Project
             // MATCH‑2
             List<(Grid grid, int column)> match2List = new List<(Grid, int)>();
 
-            foreach ((Grid simGrid, int col) in level)
+            foreach ((Grid simGrid, int col, int rotations) in level)
             {
                 Grid rotatedOriginal = grid.Clone();
 
@@ -274,7 +316,8 @@ namespace EAS_Project
         }
 
         // Checks if the bot can win this round by simulating every possible move
-        public static (bool canWin, Grid? winningGrid) canWin(
+        // Returns the winning grid
+        public static (bool canWin, Grid? winningGrid, int? rotations, int? columnNumber) canWin(
             Grid grid, 
             string piece, 
             Player currentPlayer, 
@@ -285,79 +328,72 @@ namespace EAS_Project
             // If only 1 move left, it is block so can't win
             if (remainingMoves == 1)
             {
-                return (false, null);
+                return (false, null, null, null);
             }
 
             // Simulates 1 move in every possible direction and checks for the win
             if (remainingMoves == 2)
             {
-                (Grid grid, int column)[] level = Bot.afterOneValidMove(grid, currentPlayer, playerA, playerB, false);
+                (Grid grid, int column, int rotations)[] level = Bot.afterOneValidMove(grid, currentPlayer, playerA, playerB, false);
 
 
-                foreach ((Grid g, int col) in level)
+                foreach ((Grid g, int col, int rotations) in level)
                 {
                     if (g.CheckWin(g, piece))
                     {
                         Grid winning = g.Clone();
-                        return (true, winning);
+                        return (true, winning, rotations, col);
                     }
                 }
 
 
-                return (false, null);
+                return (false, null, null, null);
             }
+
 
             // Simulates 2 moves in every possible direction
             if (remainingMoves == 3)
             {
-                // first move: normal piece (no block)
-                (Grid grid, int column)[] level1 = afterOneValidMove(grid, currentPlayer, playerA, playerB, false);
+                // First move: normal piece (no block)
+                (Grid grid, int column, int rotations)[] level1 =
+                    afterOneValidMove(grid, currentPlayer, playerA, playerB, false);
 
-
-                List<Grid[]> level2 = new List<Grid[]>();
-
-                foreach ((Grid g, int col) in level1)
+                // For each first move, simulate a second move
+                foreach ((Grid g1, int col1, int rot1) in level1)
                 {
-                    (Grid grid, int column)[] next =
-                        afterOneValidMove(g, currentPlayer, playerA, playerB, false);
+                    // Second move simulation
+                    (Grid grid, int column, int rotations)[] level2 =
+                        afterOneValidMove(g1, currentPlayer, playerA, playerB, false);
 
-                    // Convert (Grid grid, int column)[] → Grid[]
-                    Grid[] nextGrids = next.Select(item => item.grid).ToArray();
-
-                    level2.Add(nextGrids);
-                }
-
-
-                // check every grid produced at the end
-                foreach (Grid[] arr in level2)
-                {
-                    foreach (Grid g in arr)
+                    // Check every second-move grid for a win
+                    foreach ((Grid g2, int col2, int rot2) in level2)
                     {
-                        if (g.CheckWin(g, piece))
+                        if (g2.CheckWin(g2, piece))
                         {
-                            Grid winning = g.Clone();
-                            return (true, winning);
+                            Grid winning = g2.Clone();
+                            return (true, winning, rot1, col1);
                         }
                     }
                 }
 
-                return (false, null);
-            }
-
-            return (false, null);
+                // No win found after 2 simulated moves
+                return (false, null, null, null);
+            }            
+            return (false, null, null, null);
         }
 
 
-        // Returns all possible grids after 1 valid move (including 4 rotations and column dropped in)
-        // All returned grids are already rotated
-        public static (Grid grid, int column)[] afterOneValidMove(
+        // Returns all possible grids after 1 valid move (including 4 rotations)
+        // Each tuple now includes: the grid, the column used, and how many rotations were applied
+        public static (Grid grid, int column, int rotations)[] afterOneValidMove(
             Grid grid,
             Player currentPlayer,
             Player playerA,
             Player playerB,
             bool isBlock)
         {
-            List<(Grid grid, int column)> results = new List<(Grid, int)>();
+            List<(Grid grid, int column, int rotations)> results =
+                new List<(Grid, int, int)>();
 
             Grid workingGrid = grid; // Original grid
 
@@ -377,8 +413,8 @@ namespace EAS_Project
                         Grid newGrid = workingGrid.Clone();
                         newGrid.MakeMove(col, currentPlayer, playerA, playerB, isBlock);
 
-                        // Store BOTH the grid and the column used
-                        results.Add((newGrid, col));
+                        // Store grid, column, and number of rotations applied
+                        results.Add((newGrid, col, i));
                     }
                 }
             }

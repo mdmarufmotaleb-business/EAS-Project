@@ -150,5 +150,6 @@ namespace EAS_Project
             Console.WriteLine("\nInvalid block placement. A block must be placed adjacent to at least one piece.");
             Thread.Sleep(1000);
         }
+
     }
 }
