@@ -32,12 +32,29 @@ namespace EAS_Project
                 if (currentPlayer.movesRemaining == 3 || currentPlayer.movesRemaining == 2)
                 {
                     Display.DisplayMovePieceMessage();
-                    currentPlayer = PlayGame.MakeMove(grid, currentPlayer, playerA, playerB, false); // First and second moves are always PIECES
+                    if (!currentPlayer.isBot)
+                    {
+                        currentPlayer = PlayGame.MakeMove(grid, currentPlayer, playerA, playerB, false); // First and second moves are always PIECES
+                    }
+                    else
+                    {
+                        continue; // Placeholder for bot logic
+                    }
+                    
                 }
                 else if (currentPlayer.movesRemaining == 1)
                 {
                     Display.DisplayMoveBlockMessage();
-                    currentPlayer = PlayGame.MakeMove(grid, currentPlayer, playerA, playerB, true); // Third move is always a BLOCK
+
+                    if (!currentPlayer.isBot)
+                    {
+                        currentPlayer = PlayGame.MakeMove(grid, currentPlayer, playerA, playerB, true); // Third move is always a BLOCK
+                    }
+                    else
+                    {
+                        continue; // Placeholder for bot logic
+                    }
+                
                 }
 
                 Display.DisplayGrid(grid);

@@ -10,10 +10,14 @@ namespace EAS_Project
             Player playerA = new Player(nameA);
             Player playerB = new Player(nameB);
 
+            // For playing against built in bot
+            playerA.SetBot(playerA.name == "ROBOT");
+            playerB.SetBot(playerB.name == "ROBOT");
+
             return (playerA, playerB);
         }
 
-        public static string GetSinglePlayer(string player) //is A or B (not be to confused with Player class)
+        public static string GetSinglePlayer(string player) //player is A or B (not be to confused with Player class)
         {
             Console.Write($"Player {player}'s Name: ");
             string? name = Console.ReadLine();
