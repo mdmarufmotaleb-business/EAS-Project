@@ -37,9 +37,34 @@ namespace EAS_Project
 
             if (level.Length > 0)
             {
-                // I have a list of every possible move to make, now make it
+                // Level is a list of grids BEFORE rotation
+                // I pick one from this list to make my next move
+                Random rng = new Random();
+                (Grid grid, int column) gridRightColumn = level[rng.Next(level.Length)];
 
-                //continue; 
+                Grid[] listOfGrids = new Grid[] { gridRightColumn.grid };
+
+                // Rotate this grid to match the original grid orientation
+                (Grid[] matchedGrids, int totalRotations) gridRightRotation =
+                    Bot.rotateAllGrids(grid, listOfGrids);
+
+                // gridRightColumn = right column number for next move but wrong rotation
+                // gridrightRotation = other way round
+
+                // Must rotate original grid LEFT that many times, plus correct column for next move
+                for (int i = 0; i < gridRightRotation.totalRotations; i++)
+                {
+                    grid.RotateLeft();
+                }
+
+                //Drop it in
+                grid.MakeMove(
+                    gridRightColumn.column,
+                    currentPlayer,
+                    playerA,
+                    playerB,
+                    isBlock
+                );
                 return true;
             }
 
