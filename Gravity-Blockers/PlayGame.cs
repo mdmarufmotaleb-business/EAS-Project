@@ -4,7 +4,7 @@ namespace EAS_Project
     {
         public static void Play(Grid grid, Player playerA, Player playerB){
             
-            Player currentPlayer = playerA; //References the original playerA, not a duplicate
+            Player currentPlayer = playerA; 
             
             Display.DisplayTurnNameMessage(currentPlayer.name);
             Display.DisplayTurnMessage();
@@ -62,7 +62,7 @@ namespace EAS_Project
 
         }
 
-        public static void SwitchPlayer(ref Player currentPlayer, Player playerA, Player playerB) //ref modifies copy passed in
+        public static void SwitchPlayer(ref Player currentPlayer, Player playerA, Player playerB)
         {
             if (currentPlayer == playerA)
             {

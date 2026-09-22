@@ -9,7 +9,10 @@ used ai for:
 - turning code into a fucntion and calling from program.cs
 
 asked to make it capitalised it suggested .ToUpper() but that turned everythign capital. solution it gave to make just firts letter capital was too convoluted so i ignored
+-ask ai to help with bot logic. gettign1valid move grid list
 
+ai help for:
+- input grid roatate all 4, check eveyr column, see if a move is valid, if so return a list of new grid with all valid inputs. the generated coce was too big to fully understand, so had to break down into smaller steps
 .
 - make the grid object skeleton. i will edit myself and add functiosn as needed
 
