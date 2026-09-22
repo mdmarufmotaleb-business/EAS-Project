@@ -1,6 +1,6 @@
 My first and biggest issue was not knowing **C#**. I used **W3Schools** and GitHub Copilot to help me understand the correct syntax. Since I was familiar with Java, translating into C# was not very difficult
 
-Other than this, I have written down a list of specific problems I encountered:
+Other than this, I have written down a list of specific problems I encountered and what I learnt:
 
 **String manipulation**
 - I wanted to capitalise the input names, so searched Microsoft Learn & W3Schools
@@ -40,3 +40,5 @@ Other than this, I have written down a list of specific problems I encountered:
 - Conceptually I understand them, such as initial set ups, creating mocks, assertions, clean ups etc
 - My biggest issue was connecting my C# syntax Unit test to the actual code itself
 - I created a simplified test and used "dotnet new xunit" to start, suggested by Copilot
+
+

@@ -101,7 +101,19 @@ namespace EAS_Project
         public static void DisplayIntroMessage()
         {
             Console.WriteLine("\n\nHello, Welcome to Connect 4 - Gravity Blockers!");
-            Console.WriteLine("Please start by entering the names of both players\n");
+            Console.WriteLine("\nRULES:\n");
+            Console.WriteLine("- Each player gets 3 moves per turn instead of 1");
+            Console.WriteLine("- First 2 moves are normal, third is a BLOCK");
+            Console.WriteLine("- The BLOCK does not do anything except occupy a space");
+            Console.WriteLine("- BLOCKS must be placed adjacent to any existing non-BLOCK");
+            Console.WriteLine("- Players can rotate the board");
+            Console.WriteLine("- Classic Connect4 win condition applies");
+
+            Thread.Sleep(2000);
+
+            Console.WriteLine("\n\n- (Super Secret Game Hint...type 'ROBOT' as your name to play against our built in bot!)");
+
+            Console.WriteLine("\n\n\nPlease start by entering the names of both players\n");
         }
 
         public static void DisplayWelcomeMessage(string nameA, string nameB)

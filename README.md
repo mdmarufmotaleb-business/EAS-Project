@@ -87,7 +87,7 @@ Other than these, please refer to the "RESEARCH.md" file for more details on imp
 
 After having completed this, I realised that C# is not as scary as I thought! It is very similar to Java in terms of layout, so I was able to pick it up quite easily. Initially I was struggling with simple tasks such as printing to terminal, calling a function, installing dependencies etc. As the program kept building (especially the adding Robot logic), it became increasingly more difficult to keep track of which classes/methods interact with what
 
-
+This programme works perfectly well if 2 players are playing, and it is definitely very fun once you get the hang of it! The biggest challenge now however is getting the robot to work. My motivation for building a Robot was to test how far I can go, and since I was not able to successfully at this stage, I may have reached my limits. Please refer to the bottom section of "AI.md" for more information
 
 
 

@@ -2,7 +2,6 @@ namespace EAS_Project
 {
     public static class Bot
     {
-        // Returns true after a move has been made
         public static bool MakeMove(Grid grid, Player currentPlayer, Player playerA, Player playerB, int remainingMoves, bool isBlock)
         {
             String piece = Grid.CheckPiece(currentPlayer, playerA, playerB, isBlock);
