@@ -1,9 +1,9 @@
-My first and biggest issue was not knowing **C#**. I used **W3Schools** and GitHub Copilot to help me understand the correct syntax. Since I was familiar with Java, translating into C# was not very difficult
+My first and biggest issue was not knowing **C#**. I primarily used **W3Schools** and **GitHub Copilot** to help me understand the correct syntax. Since I was familiar with Java, translating into C# was not very difficult
 
 Other than this, I have written down a list of specific problems I encountered and what I learnt:
 
 **String manipulation**
-- I wanted to capitalise the input names, so searched Microsoft Learn & W3Schools
+- I wanted to capitalise the input names, so searched **Microsoft Learn** & W3Schools
 - They held generic information not relevant to what I wanted
 - StackOverflow suggested an answer, but it required splitting the string, capitalising the first character and re-joining
 - I decided this method was not worth the complexity for this requirement
@@ -12,15 +12,15 @@ Other than this, I have written down a list of specific problems I encountered a
 - Many functions required returning a Tuple of multiple data types
 - In general, I struggle understanding how Tuples work, so I searched what I am familiar with first
 - W3Schools teaches Tuples with Python, which explained the basics of what they are
-- Since Python is not strict on data types, this did not help fully as my C# tuples needed to have specific data
-- I used the same python logic to attempt the Tuple data type, and it worked
+- Since Python is not strict on data types, this did not help fully as my C# tuples needed to have specific data types
+- I used the same Python logic to attempt the Tuple in C#, and it worked
 
 **Static vs non-static**
-- I had learnt this whilst studying Java, but did not recall initially
+- I had previously learnt this whilst studying Java, but did not recall initially
 - I originally made methods/classes that were a mixture of static & non-static
 - After they failed, I switched some around and could not understand why it worked
 - I then recalled that static methods can be called without instantiating the class
-- Some of the older classes/functions may still have the wrong implementation, but still work
+- Some of the older classes/functions may still have the wrong implementations, but the overall program still works
 
 **Nested methods**
 - Especially whilst creating the Robot logic, many functions relied on another
@@ -30,7 +30,7 @@ Other than this, I have written down a list of specific problems I encountered a
 **Junk files**
 - Initially, every small change I made would create dozens of junk files which were committed into GitHub
 - I recalled the use of .gitignore for these files
-- I found a .gitignore template for C# on GitHub, then removed all previously tracked junk files
+- I found a .gitignore template for C# on GitHub, then removed all previously tracked junk files through a git -rm command
 
 **get; private set**
 - I originally learnt this concept during OOP studies for Python, but forgot
@@ -38,7 +38,8 @@ Other than this, I have written down a list of specific problems I encountered a
 
 **Unit tests**
 - Conceptually I understand them, such as initial set ups, creating mocks, assertions, clean ups etc
-- My biggest issue was connecting my C# syntax Unit test to the actual code itself
-- I created a simplified test and used "dotnet new xunit" to start, suggested by Copilot
+- My biggest issue was connecting my C# syntax for Unit testing to the actual code itself
+- I used "dotnet new xunit" to start and created a simplified test suggested by Copilot
+- Further automated tests can be added as a future improvement
 
 

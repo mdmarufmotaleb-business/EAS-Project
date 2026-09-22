@@ -70,7 +70,7 @@ I will be creating a **Command Line Application** to keep things simple. There i
 
 # Improvements
 
-After conducting many tests, the built in Robot **does not work as intended**. It appears te Robot is unable to rotate the Grid, and often causes IndexOutOfBounds error. With more time, this could be fixed.
+After conducting many tests, the built in Robot **does not work as intended**. It appears the Robot is unable to rotate the Grid, and often causes IndexOutOfBounds error. With more time, this could be fixed.
 
 Another major improvement is adding Unit tests - I have added a simple one to see if I am able to. Since C# is new to me, this was a major step. I can now easily add Unit tests for all remaining functionality with more time, including:
 
@@ -78,16 +78,16 @@ Another major improvement is adding Unit tests - I have added a simple one to se
 - Check valid piece/block placement
 - Check board rotates right/left
 
-Please note that all of these have been checked manually and do work to the best of my knowlegde
+Please note that all of these have been checked manually and do work to the best of my knowledge
 
-Other than these, please refer to the "RESEARCH.md" file for more details on improvements I could make
+Other than these, please refer to the "RESEARCH.md" file for more specific details on improvements I could make
 
 
 # Afterthoughts
 
 After having completed this, I realised that C# is not as scary as I thought! It is very similar to Java in terms of layout, so I was able to pick it up quite easily. Initially I was struggling with simple tasks such as printing to terminal, calling a function, installing dependencies etc. As the program kept building (especially the adding Robot logic), it became increasingly more difficult to keep track of which classes/methods interact with what
 
-This programme works perfectly well if 2 players are playing, and it is definitely very fun once you get the hang of it! The biggest challenge now however is getting the robot to work. My motivation for building a Robot was to test how far I can go, and since I was not able to successfully at this stage, I may have reached my limits. Please refer to the bottom section of "AI.md" for more information
+This programme works perfectly well if 2 players are playing, and it is definitely very fun once you get the hang of it! The biggest challenge now however is getting the Tobot to work. My motivation for building a Robot was to test how far I can go, and since I was not able to successfully at this stage, I may have reached my limits. Please refer to the bottom section of the "AI.md" file for more information
 
 
 
