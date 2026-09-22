@@ -29,12 +29,63 @@ namespace EAS_Project
             // Third priority - build on existing pieces
             // Next move should match 3 if possible, else match 2
 
+            Grid[] level = Bot.priorityMoves(grid, currentPlayer, playerA, playerB, isBlock);
+
+            if (level.Length > 0)
+            {
+                continue; // add logic later 
+                return true;
+            }
+            // Fourth priority - add a move randomly
+            else
+            {
+                
+                continue; //add logic later 
+                return true;
+            }
 
 
 
 
 
+        }
 
+        // Returns a list of all possible moves filtered by best value
+        public static Grid[] priorityMoves(Grid grid, Player currentPlayer, Player playerA, Player playerB, bool isBlock)
+        {
+            Grid[] level = afterOneValidMove(grid, currentPlayer, playerA, playerB, isBlock);
+
+            // Try MATCH‑3 first
+            List<Grid> match3List = new List<Grid>();
+            foreach (Grid g in level)
+            {
+                if (checkMatchThree(g, piece))
+                    match3List.Add(g);
+            }
+
+            // If any match‑3 grids exist, keep only those
+            if (match3List.Count > 0)
+            {
+                level = match3List.ToArray();
+            }
+            else
+            {
+                // Otherwise try MATCH‑2
+                List<Grid> match2List = new List<Grid>();
+                foreach (Grid g in level)
+                {
+                    if (checkMatchTwo(g, piece))
+                        match2List.Add(g);
+                }
+
+                // If match‑2 exists, keep them; otherwise empty the list
+                if (match2List.Count > 0)
+                    level = match2List.ToArray();
+                else
+                    level = Array.Empty<Grid>();
+            }
+
+            return level;
         }
 
         // Checks if the bot can win this round by simulating every possible move
@@ -104,6 +155,7 @@ namespace EAS_Project
 
 
         // Returns all possible grids after 1 valid move (including 4 rotations)
+        // All returned grids are already rotated
         public static Grid[] afterOneValidMove(Grid grid, Player currentPlayer, Player playerA, Player playerB, bool isBlock)
         {
             List<Grid> results = new List<Grid>();
@@ -133,6 +185,7 @@ namespace EAS_Project
             return results.ToArray();
         }
 
+        // Checks if 2 of the given pieces are in any row in the grid
         public bool checkMatchTwo(Grid grid, string piece)
         {
             // horizontal check
@@ -229,7 +282,6 @@ namespace EAS_Project
 
             return false;
         }
-
 
     }
 }
