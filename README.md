@@ -2,7 +2,7 @@
 
 Welcome to **Connect 4 - Gravity Blockers!**
 
-This is a variant of the original Sudoku built as a CLI application using C#. The additional rules are:
+This is a variant of the original Connect4 built as a CLI application using C#. The additional rules are:
 - The board can be rotated left/right
 - Each player has 3 moves for their turn
 - First 2 moves are normal, but the 3rd is a "block" piece
