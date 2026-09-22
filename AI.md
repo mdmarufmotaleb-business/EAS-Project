@@ -16,6 +16,8 @@ ai help for:
 .
 - make the grid object skeleton. i will edit myself and add functiosn as needed
 
+learnty looping through a toople
+
 
 'Grid' does not contain a definition for 'Clone' and no accessible extension method 'Clone' accepting a first argument of type 'Grid' could be found (are you missing a using directive or an assembly reference?) - problem is clien method isnt built in we had to make one
 

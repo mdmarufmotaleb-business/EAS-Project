@@ -12,7 +12,7 @@ namespace EAS_Project
             
             if (result.canWin)
             {
-                continue;// add logic to make this move
+                //continue;// add logic to make this move
                 return true;
             }
 
@@ -26,18 +26,21 @@ namespace EAS_Project
 
             if (result.canWin)
             {
-                continue;// add logic to make this move
+                //continue;// add logic to make this move
                 return true;
             }
 
             // Third priority - build on existing pieces
             // Next move should match 3 if possible, else match 2
 
-            (Grid grid, int column)[] level = Bot.priorityMoves(grid, currentPlayer, playerA, playerB, isBlock);
+            (Grid grid, int column)[] level = Bot.priorityMoves(grid, currentPlayer, playerA, playerB, piece, isBlock);
 
             if (level.Length > 0)
             {
-                continue; 
+                // I have a list of every possible move to make, now make it
+
+                //continue; 
+                return true;
             }
 
             // Fourth priority - add a move randomly
@@ -45,15 +48,65 @@ namespace EAS_Project
             {
                 return Bot.makeRandomMove(grid, currentPlayer, playerA, playerB, isBlock);
             }
-
-            return false;
-
         }
 
-        // Given a selection of moves, choose a random one and make it
-        public static bool makeRandomMoveBySelection(Grid grid, Player currentPlayer, Player playerA, Player playerB, bool isBlock, (Grid int)[] selection)
+        // Rotates all grids in a list to match the original grid
+        public static (Grid[] matchedGrids, int totalRotations) rotateAllGrids(
+            Grid originalGrid,
+            Grid[] listOfGrids)
         {
+            List<Grid> matched = new List<Grid>();
+            int totalRotations = 0;
 
+            foreach (Grid g in listOfGrids)
+            {
+                Grid working = g.Clone();
+                int rotations = 0;
+
+                // Try up to 4 orientations (0, 1, 2, 3 rotations)
+                for (int i = 0; i < 4; i++)
+                {
+                    if (working.Equals(originalGrid))
+                    {
+                        matched.Add(working.Clone());
+                        totalRotations += rotations;
+                        break;
+                    }
+
+                    // Rotate and increase counter
+                    working.RotateRight();
+                    rotations++;
+                }
+            }
+
+            return (matched.ToArray(), totalRotations);
+        }
+
+
+        // Given a selection of moves, choose a random one and make it
+        public static bool makeRandomMoveBySelection(
+            Grid grid,
+            Player currentPlayer,
+            Player playerA,
+            Player playerB,
+            bool isBlock,
+            (Grid grid, int column)[] selection)
+        {
+            // If no moves exist, return false
+            if (selection.Length == 0)
+                return false;
+
+            // Pick a random item
+            Random rng = new Random();
+            int index = rng.Next(selection.Length);
+
+            Grid chosenGrid = selection[index].grid;
+            int chosenColumn = selection[index].column;
+
+            // Apply the move to the REAL grid
+            grid.MakeMove(chosenColumn, currentPlayer, playerA, playerB, isBlock);
+
+            return true;
         }
 
         public static bool makeRandomMove(Grid grid, Player currentPlayer, Player playerA, Player playerB, bool isBlock)
@@ -89,7 +142,7 @@ namespace EAS_Project
             return false; // no move possible even after 4 rotations
         }
 
-        // Returns a list of all possible moves filtered by best value
+        // Returns a list of all possible moves filtered by best value BEFORE making a move
         // Also includes column number of where to drop it
         // Returns empty list if no moves are good value
         public static (Grid grid, int column)[] priorityMoves(
@@ -97,45 +150,102 @@ namespace EAS_Project
             Player currentPlayer,
             Player playerA,
             Player playerB,
+            string piece,
             bool isBlock)
         {
             
-            (Grid grid, int column)[] level =
+            (Grid simulatedGrid, int column)[] level =
                 Bot.afterOneValidMove(grid, currentPlayer, playerA, playerB, isBlock);
 
-            // MATCH‑3 filtering
             List<(Grid grid, int column)> match3List = new List<(Grid, int)>();
 
-            foreach ((Grid g, int col) in level)
+            foreach ((Grid simGrid, int col) in level)
             {
-                if (checkMatchThree(g, piece))
-                    match3List.Add((g, col));
-            }
+                Grid rotatedOriginal = grid.Clone();
 
-            // If any match‑3 grids exist, keep only those
-            if (match3List.Count > 0)
-            {
-                level = match3List.ToArray();
-            }
-            else
-            {
-                // MATCH‑2 filtering
-                List<(Grid grid, int column)> match2List = new List<(Grid, int)>();
-
-                foreach ((Grid g, int col) in level)
+                // Rotate original until its Cells match simGrid BEFORE the move
+                for (int i = 0; i < 4; i++)
                 {
-                    if (checkMatchTwo(g, piece))
-                        match2List.Add((g, col));
+                    bool same = true;
+
+                    if (rotatedOriginal.Rows == simGrid.Rows &&
+                        rotatedOriginal.Columns == simGrid.Columns)
+                    {
+                        for (int r = 0; r < rotatedOriginal.Rows && same; r++)
+                        {
+                            for (int c = 0; c < rotatedOriginal.Columns; c++)
+                            {
+                                if (rotatedOriginal.Cells[r, c] != simGrid.Cells[r, c])
+                                {
+                                    same = false;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        same = false;
+                    }
+
+                    if (same)
+                        break;
+
+                    rotatedOriginal.RotateRight();
                 }
 
-                // If match‑2 exists, keep them; otherwise empty the list
-                if (match2List.Count > 0)
-                    level = match2List.ToArray();
-                else
-                    level = Array.Empty<(Grid grid, int column)>();
+                if (checkMatchThree(simGrid, piece))
+                    match3List.Add((rotatedOriginal, col));
             }
 
-            return level;
+            if (match3List.Count > 0)
+                return match3List.ToArray();
+
+            // MATCH‑2
+            List<(Grid grid, int column)> match2List = new List<(Grid, int)>();
+
+            foreach ((Grid simGrid, int col) in level)
+            {
+                Grid rotatedOriginal = grid.Clone();
+
+                for (int i = 0; i < 4; i++)
+                {
+                    bool same = true;
+
+                    if (rotatedOriginal.Rows == simGrid.Rows &&
+                        rotatedOriginal.Columns == simGrid.Columns)
+                    {
+                        for (int r = 0; r < rotatedOriginal.Rows && same; r++)
+                        {
+                            for (int c = 0; c < rotatedOriginal.Columns; c++)
+                            {
+                                if (rotatedOriginal.Cells[r, c] != simGrid.Cells[r, c])
+                                {
+                                    same = false;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        same = false;
+                    }
+
+                    if (same)
+                        break;
+
+                    rotatedOriginal.RotateRight();
+                }
+
+                if (checkMatchTwo(simGrid, piece))
+                    match2List.Add((rotatedOriginal, col));
+            }
+
+            if (match2List.Count > 0)
+                return match2List.ToArray();
+
+            return Array.Empty<(Grid grid, int column)>();
         }
 
         // Checks if the bot can win this round by simulating every possible move
@@ -183,8 +293,13 @@ namespace EAS_Project
 
                 foreach ((Grid g, int col) in level1)
                 {
-                    (Grid grid, int column)[] next = afterOneValidMove(g, currentPlayer, playerA, playerB, false);
-                    level2.Add(next);
+                    (Grid grid, int column)[] next =
+                        afterOneValidMove(g, currentPlayer, playerA, playerB, false);
+
+                    // Convert (Grid grid, int column)[] → Grid[]
+                    Grid[] nextGrids = next.Select(item => item.grid).ToArray();
+
+                    level2.Add(nextGrids);
                 }
 
 
@@ -248,7 +363,7 @@ namespace EAS_Project
 
 
         // Checks if 2 of the given pieces are in any row in the grid
-        public bool checkMatchTwo(Grid grid, string piece)
+        public static bool checkMatchTwo(Grid grid, string piece)
         {
             // horizontal check
             for (int r = 0; r < grid.Rows; r++)
@@ -292,7 +407,7 @@ namespace EAS_Project
 
             return false;
         }
-        public bool checkMatchThree(Grid grid, string piece)
+        public static bool checkMatchThree(Grid grid, string piece)
         {
             // horizontal check
             for (int r = 0; r < grid.Rows; r++)
