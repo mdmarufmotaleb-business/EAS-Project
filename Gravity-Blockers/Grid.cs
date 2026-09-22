@@ -23,7 +23,7 @@ namespace EAS_Project
             }
         }
 
-        public void MakeMove(int inputColumn, Player currentPlayer, Player playerA, Player playerB, bool isBlock)
+        public static string CheckPiece(Player currentPlayer, Player playerA, Player playerB, bool isBlock)
         {
             string piece;
 
@@ -39,6 +39,13 @@ namespace EAS_Project
             {
                 piece = "[B]";
             }
+
+            return piece;
+        }
+
+        public void MakeMove(int inputColumn, Player currentPlayer, Player playerA, Player playerB, bool isBlock)
+        {
+            String piece = Grid.CheckPiece(currentPlayer, playerA, playerB, isBlock);
 
             int col = inputColumn - 1;
 
@@ -88,8 +95,9 @@ namespace EAS_Project
                 bool up    = landingRow > 0 && (Cells[landingRow - 1, col] == "[A]" || Cells[landingRow - 1, col] == "[B]");
                 bool left  = col > 0 && (Cells[landingRow, col - 1] == "[A]" || Cells[landingRow, col - 1] == "[B]");
                 bool right = col < Columns - 1 && (Cells[landingRow, col + 1] == "[A]" || Cells[landingRow, col + 1] == "[B]");
+                bool down = landingRow < Rows - 1 && (Cells[landingRow + 1, col] == "[A]" || Cells[landingRow + 1, col] == "[B]");
 
-                return up || left || right;
+                return up || left || right || down;
             }
         }
 

@@ -2,7 +2,7 @@ namespace EAS_Project
 {
     public static class Bot
     {
-        public static void MakePieceMove(Grid grid, string piece, Player currentPlayer, Player playerA, Player playerB, int remainingMoves, bool isBlock)
+        public static void MakePieceMove(Grid grid, Player currentPlayer, Player playerA, Player playerB, int remainingMoves, bool isBlock)
         {
             
         }
