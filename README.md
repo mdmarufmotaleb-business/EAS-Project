@@ -80,6 +80,8 @@ Another major improvement is adding Unit tests - I have added a simple one to se
 
 Please note that all of these have been checked manually and do work to the best of my knowlegde
 
+Other than these, please refer to the "RESEARCH.md" file for more details on improvements I could make
+
 
 # Afterthoughts
 
