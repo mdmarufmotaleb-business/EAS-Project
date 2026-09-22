@@ -2,9 +2,39 @@ namespace EAS_Project
 {
     public static class Bot
     {
-        public static void MakePieceMove(Grid grid, Player currentPlayer, Player playerA, Player playerB, int remainingMoves, bool isBlock)
+        // Returns true after a move has been made
+        public static bool MakePieceMove(Grid grid, Player currentPlayer, Player playerA, Player playerB, int remainingMoves, bool isBlock)
         {
+            String piece = Grid.CheckPiece(currentPlayer, playerA, playerB, isBlock);
+
+            // First priority - WIN
+            if Bot.canWin(grid, piece, currentPlayer, playerA, playerB, remainingMoves)
+            {
+                continue;// add logic to make this move
+                return true;
+            }
             
+            // Needed to simulate if opponent can win
+            string newPiece = (piece == "[A]") ? "[B]" :
+                (piece == "[B]") ? "[A]" :
+                piece;
+            
+            // Second priority - STOP THEM FROM WINNING
+            if Bot.canWin(grid, piece, currentPlayer, playerA, playerB, remainingMoves)
+            {
+                continue;// add logic to make this move
+                return true;
+            }
+
+            // Third priority - build on existing pieces
+            // Next move should match 3 if possible, else match 2
+
+
+
+
+
+
+
         }
 
         // Checks if the bot can win this round by simulating every possible move
@@ -102,5 +132,104 @@ namespace EAS_Project
 
             return results.ToArray();
         }
+
+        public bool checkMatchTwo(Grid grid, string piece)
+        {
+            // horizontal check
+            for (int r = 0; r < grid.Rows; r++)
+            {
+                for (int c = 0; c < grid.Columns - 1; c++)
+                {
+                    if (grid.Cells[r, c] == piece && grid.Cells[r, c + 1] == piece)
+                        return true;
+                }
+            }
+
+            // vertical check
+            for (int r = 0; r < grid.Rows - 1; r++)
+            {
+                for (int c = 0; c < grid.Columns; c++)
+                {
+                    if (grid.Cells[r, c] == piece && grid.Cells[r + 1, c] == piece)
+                        return true;
+                }
+            }
+
+            // diagonal down-right
+            for (int r = 0; r < grid.Rows - 1; r++)
+            {
+                for (int c = 0; c < grid.Columns - 1; c++)
+                {
+                    if (grid.Cells[r, c] == piece && grid.Cells[r + 1, c + 1] == piece)
+                        return true;
+                }
+            }
+
+            // diagonal down-left
+            for (int r = 0; r < grid.Rows - 1; r++)
+            {
+                for (int c = 1; c < grid.Columns; c++)
+                {
+                    if (grid.Cells[r, c] == piece && grid.Cells[r + 1, c - 1] == piece)
+                        return true;
+                }
+            }
+
+            return false;
+        }
+        public bool checkMatchThree(Grid grid, string piece)
+        {
+            // horizontal check
+            for (int r = 0; r < grid.Rows; r++)
+            {
+                for (int c = 0; c < grid.Columns - 2; c++)
+                {
+                    if (grid.Cells[r, c] == piece &&
+                        grid.Cells[r, c + 1] == piece &&
+                        grid.Cells[r, c + 2] == piece)
+                        return true;
+                }
+            }
+
+            // vertical check
+            for (int r = 0; r < grid.Rows - 2; r++)
+            {
+                for (int c = 0; c < grid.Columns; c++)
+                {
+                    if (grid.Cells[r, c] == piece &&
+                        grid.Cells[r + 1, c] == piece &&
+                        grid.Cells[r + 2, c] == piece)
+                        return true;
+                }
+            }
+
+            // diagonal down-right
+            for (int r = 0; r < grid.Rows - 2; r++)
+            {
+                for (int c = 0; c < grid.Columns - 2; c++)
+                {
+                    if (grid.Cells[r, c] == piece &&
+                        grid.Cells[r + 1, c + 1] == piece &&
+                        grid.Cells[r + 2, c + 2] == piece)
+                        return true;
+                }
+            }
+
+            // diagonal down-left
+            for (int r = 0; r < grid.Rows - 2; r++)
+            {
+                for (int c = 2; c < grid.Columns; c++)
+                {
+                    if (grid.Cells[r, c] == piece &&
+                        grid.Cells[r + 1, c - 1] == piece &&
+                        grid.Cells[r + 2, c - 2] == piece)
+                        return true;
+                }
+            }
+
+            return false;
+        }
+
+
     }
 }

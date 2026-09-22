@@ -23,6 +23,7 @@ namespace EAS_Project
             }
         }
 
+        // Returns the corresponding piece shape [A] [B] or [X] based off current player
         public static string CheckPiece(Player currentPlayer, Player playerA, Player playerB, bool isBlock)
         {
             string piece;
