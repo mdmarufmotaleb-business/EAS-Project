@@ -7,143 +7,154 @@ namespace EAS_Project
             String piece = Grid.CheckPiece(currentPlayer, playerA, playerB, isBlock);
 
             // First priority - WIN
-            (bool canWin, Grid? winningGrid, int? rotations, int? column) result = Bot.canWin(grid, piece, currentPlayer, playerA, playerB, remainingMoves);
+            //(bool canWin, Grid? winningGrid, int? rotations, int? column) result = Bot.canWin(grid, piece, currentPlayer, playerA, playerB, remainingMoves);
             
-            if (result.canWin)
-            {
-                // Rotate the original grid RIGHT result.rotations times
-                for (int i = 0; i < result.rotations; i++)
-                {
-                    grid.RotateRight();
-                    Display.DisplayTurnNameMessage("RIGHT");
-                    Display.DisplayGrid(grid);
-                }
+            // if (result.canWin)
+            // {
+            //     Console.WriteLine("First Priority");
+            //     // Rotate the original grid RIGHT result.rotations times
+            //     for (int i = 0; i < result.rotations; i++)
+            //     {
+            //         grid.RotateRight();
+            //         Display.DisplayTurnNameMessage("RIGHT");
+            //         Display.DisplayGrid(grid);
+            //     }
 
-                // Now make the winning move
-                grid.MakeMove(
-                    result.column.Value,
-                    currentPlayer,
-                    playerA,
-                    playerB,
-                    isBlock
-                );
-                Display.DisplayDropSuccessMessage("ROBOT", result.column.Value, isBlock);
+            //     // Now make the winning move
+            //     grid.MakeMove(
+            //         result.column.Value,
+            //         currentPlayer,
+            //         playerA,
+            //         playerB,
+            //         isBlock
+            //     );
+            //     Display.DisplayDropSuccessMessage("ROBOT", result.column.Value, isBlock);
                 
-                return true;
-            }
+            //     return true;
+            // }
 
 
             // Second priority - STOP THEM FROM WINNING
             
-            // Needed to simulate if opponent can also win
-            result = Bot.canWin(grid, piece, currentPlayer, playerA, playerB, remainingMoves);
-            string newPiece = (piece == "[A]") ? "[B]" :
-                (piece == "[B]") ? "[A]" :
-                piece;
+            // // Needed to simulate if opponent can also win
+            // result = Bot.canWin(grid, piece, currentPlayer, playerA, playerB, remainingMoves);
+            // string newPiece = (piece == "[A]") ? "[B]" :
+            //     (piece == "[B]") ? "[A]" :
+            //     piece;
 
-            if (result.canWin)
-            {
-                // Rotate the original grid RIGHT result.rotations times
-                for (int i = 0; i < result.rotations; i++)
-                {
-                    grid.RotateRight();
-                    Display.DisplayTurnNameMessage("RIGHT");
-                    Display.DisplayGrid(grid);
-                }
+            // if (result.canWin)
+            // {
+            //     Console.WriteLine("Second Priority");
+            //     // Rotate the original grid RIGHT result.rotations times
+            //     for (int i = 0; i < result.rotations; i++)
+            //     {
+            //         grid.RotateRight();
+            //         Display.DisplayTurnNameMessage("RIGHT");
+            //         Display.DisplayGrid(grid);
+            //     }
 
-                // Stop them from winning
-                grid.MakeMove(
-                    result.column.Value,
-                    currentPlayer,
-                    playerA,
-                    playerB,
-                    isBlock
-                );
-                Display.DisplayDropSuccessMessage("ROBOT", result.column.Value, isBlock);
+            //     // Stop them from winning
+            //     grid.MakeMove(
+            //         result.column.Value,
+            //         currentPlayer,
+            //         playerA,
+            //         playerB,
+            //         isBlock
+            //     );
+            //     Display.DisplayDropSuccessMessage("ROBOT", result.column.Value, isBlock);
                 
-                return true;
-            }
+            //     return true;
+            // }
 
             // Third priority - build on existing pieces
             // Next move should match 3 if possible, else match 2
 
-            (Grid grid, int column)[] level = Bot.priorityMoves(grid, currentPlayer, playerA, playerB, piece, isBlock);
+            // (Grid grid, int column)[] level = Bot.priorityMoves(grid, currentPlayer, playerA, playerB, piece, isBlock);
 
-            if (level.Length > 0)
-            {
-                // Level is a list of grids BEFORE rotation
-                // I pick one from this list to make my next move
-                Random rng = new Random();
-                (Grid grid, int column) gridRightColumn = level[rng.Next(level.Length)];
+            // if (level.Length > 0)
+            // {
+            //     Console.WriteLine("Third Priority");
+            //     // Level is a list of grids BEFORE rotation
+            //     // I pick one from this list to make my next move
+            //     Random rng = new Random();
+            //     (Grid grid, int column) gridRightColumn = level[rng.Next(level.Length)];
 
-                Grid[] listOfGrids = new Grid[] { gridRightColumn.grid };
+            //     //A list of just 1 grid
+            //     Grid[] listOfGrids = new Grid[] { gridRightColumn.grid };
 
-                // Rotate this grid to match the original grid orientation
-                (Grid[] matchedGrids, int totalRotations) gridRightRotation =
-                    Bot.rotateAllGrids(grid, listOfGrids);
+            //     // Rotate this grid to match the original grid orientation
+            //     (Grid rotatedGrid, int rotations)[] gridRightRotation = Bot.rotateAllGrids(grid, listOfGrids);
 
-                // gridRightColumn = right column number for next move but wrong rotation
-                // gridrightRotation = other way round
+            //     // gridRightColumn = tuple(grid, int) right column number for next move but wrong rotation
+            //     // gridRightRotation = other way round
 
-                // Must rotate original grid LEFT that many times, plus correct column for next move
-                for (int i = 0; i < gridRightRotation.totalRotations; i++)
-                {
-                    grid.RotateLeft();
-                    Display.DisplayRotationMessage("LEFT");
-                    Display.DisplayGrid(grid);
-                }
+            //     // Must rotate original grid RIGHT that many times, plus correct column for next move
+            //     var thisGrid = gridRightRotation[0]; //thisGrid is right rotation, wrong column number
+            //     for (int i = 0; i < thisGrid.rotations; i++)
+            //     {
+            //         grid.RotateRight();
+            //         Display.DisplayRotationMessage("RIGHT");
+            //         Display.DisplayGrid(grid);
+            //     }
 
-                //Drop it in
-                grid.MakeMove(
-                    gridRightColumn.column,
-                    currentPlayer,
-                    playerA,
-                    playerB,
-                    isBlock
-                );
-                Display.DisplayDropSuccessMessage("ROBOT", gridRightColumn.column, isBlock);
+            //     //Drop it in
+            //     grid.MakeMove(
+            //         gridRightColumn.column,
+            //         currentPlayer,
+            //         playerA,
+            //         playerB,
+            //         isBlock
+            //     );
+            //     Display.DisplayDropSuccessMessage("ROBOT", gridRightColumn.column, isBlock);
                 
-                return true;
-            }
+            //     return true;
+            // }
 
             // Fourth priority - add a move randomly
-            else
-            {
+            //else
+            //{
+                //Console.WriteLine("Fourth Priority");
                 return Bot.makeRandomMove(grid, currentPlayer, playerA, playerB, isBlock);
-            }
+            //}
         }
 
         // Rotates all grids in a list to match the original grid
-        public static (Grid[] matchedGrids, int totalRotations) rotateAllGrids(
+        // Returns all grids AFTER rotation, plus how many right-rotations it took
+       public static (Grid rotatedGrid, int rotations)[] rotateAllGrids(
             Grid originalGrid,
             Grid[] listOfGrids)
         {
-            List<Grid> matched = new List<Grid>();
-            int totalRotations = 0;
+            List<(Grid rotatedGrid, int rotations)> results =
+                new List<(Grid, int)>();
 
             foreach (Grid g in listOfGrids)
             {
                 Grid working = g.Clone();
                 int rotations = 0;
+                bool matched = false;
 
-                // Try up to 4 orientations (0, 1, 2, 3 rotations)
+                // Try up to 4 orientations
                 for (int i = 0; i < 4; i++)
                 {
                     if (working.Equals(originalGrid))
                     {
-                        matched.Add(working.Clone());
-                        totalRotations += rotations;
+                        // This grid matches the original after 'rotations' turns
+                        results.Add((working.Clone(), rotations));
+                        matched = true;
                         break;
                     }
 
-                    // Rotate and increase counter
+                    // Rotate and try again
                     working.RotateRight();
                     rotations++;
                 }
+
+                // If not matched, skip this grid entirely
             }
 
-            return (matched.ToArray(), totalRotations);
+            return results.ToArray();
         }
+
 
 
         // Given a selection of moves, choose a random one and make it
