@@ -67,10 +67,11 @@ namespace EAS_Project
         public bool IsValidMove(int inputColumn, bool isBlock)
         {
             int col = inputColumn - 1;
+            Console.WriteLine($"Checkign is valid input col: {col} isBlock: {isBlock}");
 
             if (!isBlock)
             {
-                return Cells[0, col] == "[ ]";
+                return Cells[0, col] == "[ ]"; //if theres still space and its not a BLOCK, its valid
             }
             else
             {
@@ -86,11 +87,15 @@ namespace EAS_Project
                     }
                 }
 
+                
+
                 // If the column is empty, the block will land at the bottom
                 if (landingRow == -1)
                 {
                     landingRow = Rows - 1;
                 }
+
+                Console.WriteLine("Landing row: " + landingRow);
 
                 // At least one neighbour must be a valid piece (not a block)
                 bool up    = landingRow > 0 && (Cells[landingRow - 1, col] == "[A]" || Cells[landingRow - 1, col] == "[B]");
@@ -98,7 +103,12 @@ namespace EAS_Project
                 bool right = col < Columns - 1 && (Cells[landingRow, col + 1] == "[A]" || Cells[landingRow, col + 1] == "[B]");
                 bool down = landingRow < Rows - 1 && (Cells[landingRow + 1, col] == "[A]" || Cells[landingRow + 1, col] == "[B]");
 
-                return up || left || right || down;
+                if (Cells[0, col] == "[ ]") // if space left at top
+                {
+                    return up || left || right || down;
+                }
+                return false;
+                
             }
         }
 

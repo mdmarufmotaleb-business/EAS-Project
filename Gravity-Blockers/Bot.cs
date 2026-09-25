@@ -185,26 +185,42 @@ namespace EAS_Project
 
         public static bool makeRandomMove(Grid grid, Player currentPlayer, Player playerA, Player playerB, bool isBlock)
         {
+            Console.WriteLine("Bot Dropping block now: " + isBlock);
             // Try up to 4 orientations (original + 3 rotations)
             for (int i = 0; i < 4; i++)
             {
+                Console.WriteLine("making random move");
                 // Build list of columns
                 List<int> columns = new List<int>();
                 for (int c = 0; c < grid.Columns; c++)
                 {
-                    columns.Add(c + 1); // 1-based
+                    columns.Add(c); //was +1
                 }
+                Console.WriteLine("Building List");
 
                 // Shuffle columns
                 Random rng = new Random();
                 columns = columns.OrderBy(x => rng.Next()).ToList();
+                Console.WriteLine("Shuffling colum." );
+                Console.WriteLine($"Columns length: {columns.Count} and values rn:");
+                foreach (int col in columns)
+                {
+                    Console.Write(col);
+                }
+                Console.WriteLine();
+
 
                 // Try each column in random order
                 foreach (int col in columns)
                 {
-                    if (grid.IsValidMove(col, isBlock))
+
+                    Console.WriteLine("Trying column: " + col + " is it: " + grid.IsValidMove(col+1, isBlock));
+
+                    if (grid.IsValidMove(col + 1, isBlock))
                     {
-                        grid.MakeMove(col, currentPlayer, playerA, playerB, isBlock);
+                        Console.WriteLine("Is valid move: col, isBl: " + col + " " + isBlock);
+
+                        grid.MakeMove(col + 1, currentPlayer, playerA, playerB, isBlock);
                         Display.DisplayDropSuccessMessage("ROBOT", col, isBlock);
                         return true;
                     }
