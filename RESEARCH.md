@@ -42,4 +42,10 @@ Other than this, I have written down a list of specific problems I encountered a
 - I used "dotnet new xunit" to start and created a simplified test suggested by Copilot
 - Further automated tests can be added as a future improvement
 
+**Broken Robot**
 
+The Robot often caused an "IndexOutOfBounds" error. After further investigation, part of this issue has been resolved.
+
+The issue was found by calling Console.WriteLine() at various points, and discovering that if the generated number was 0, the input column for the grid was -1, causing an indexOutOfBounds error. I have updated the input grid to be 1 greater than the generated value, thus fixing the error. The Robots 4th priority now works as expected, and it is suspected that the other 3 priorities have a similar error which will need further investigation. 
+
+As of now, the application is at an "experimental" phase until further testing is complete

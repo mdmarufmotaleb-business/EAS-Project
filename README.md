@@ -89,7 +89,8 @@ After having completed this, I realised that C# is not as scary as I thought! It
 
 This program works perfectly well if 2 players are playing, and it is definitely very fun once you get the hang of it! The biggest challenge now however is getting the Robot to work. My motivation for building a Robot was to test how far I can go, and since I was not able to successfully at this stage, I may have reached my limits. Please refer to the bottom section of the "AI.md" file for more information
 
-Update: After further testing, the robots 4th priority "Make a random move" appears to work. I have temporarily disabled the other priority moves until the issue can be resolved
+Update: After further testing, the robots 4th priority "Make a random move" appears to work. I have temporarily disabled the other priority moves until the issue can be resolved. Please refer to the "RESEARCH.md" file for more detail
+
 
 
 
