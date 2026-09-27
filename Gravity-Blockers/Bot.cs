@@ -69,53 +69,53 @@ namespace EAS_Project
             // Third priority - build on existing pieces
             // Next move should match 3 if possible, else match 2
 
-            // (Grid grid, int column)[] level = Bot.priorityMoves(grid, currentPlayer, playerA, playerB, piece, isBlock);
+            (Grid grid, int column)[] level = Bot.priorityMoves(grid, currentPlayer, playerA, playerB, piece, isBlock);
 
-            // if (level.Length > 0)
-            // {
-            //     Console.WriteLine("Third Priority");
-            //     // Level is a list of grids BEFORE rotation
-            //     // I pick one from this list to make my next move
-            //     Random rng = new Random();
-            //     (Grid grid, int column) gridRightColumn = level[rng.Next(level.Length)];
+            if (level.Length > 0)
+            {
+                Console.WriteLine("Third Priority");
+                // Level is a list of grids BEFORE rotation
+                // I pick one from this list to make my next move
+                Random rng = new Random();
+                (Grid grid, int column) gridRightColumn = level[rng.Next(level.Length)];
 
-            //     //A list of just 1 grid
-            //     Grid[] listOfGrids = new Grid[] { gridRightColumn.grid };
+                //A list of just 1 grid
+                Grid[] listOfGrids = new Grid[] { gridRightColumn.grid };
 
-            //     // Rotate this grid to match the original grid orientation
-            //     (Grid rotatedGrid, int rotations)[] gridRightRotation = Bot.rotateAllGrids(grid, listOfGrids);
+                // Rotate this grid to match the original grid orientation
+                (Grid rotatedGrid, int rotations)[] gridRightRotation = Bot.rotateAllGrids(grid, listOfGrids);
 
-            //     // gridRightColumn = tuple(grid, int) right column number for next move but wrong rotation
-            //     // gridRightRotation = other way round
+                // gridRightColumn = tuple(grid, int) right column number for next move but wrong rotation
+                // gridRightRotation = other way round
 
-            //     // Must rotate original grid RIGHT that many times, plus correct column for next move
-            //     var thisGrid = gridRightRotation[0]; //thisGrid is right rotation, wrong column number
-            //     for (int i = 0; i < thisGrid.rotations; i++)
-            //     {
-            //         grid.RotateRight();
-            //         Display.DisplayRotationMessage("RIGHT");
-            //         Display.DisplayGrid(grid);
-            //     }
+                // Must rotate original grid RIGHT that many times, plus correct column for next move
+                var thisGrid = gridRightRotation[0]; //thisGrid is right rotation, wrong column number
+                for (int i = 0; i < thisGrid.rotations; i++)
+                {
+                    grid.RotateRight();
+                    Display.DisplayRotationMessage("RIGHT");
+                    Display.DisplayGrid(grid);
+                }
 
-            //     //Drop it in
-            //     grid.MakeMove(
-            //         gridRightColumn.column,
-            //         currentPlayer,
-            //         playerA,
-            //         playerB,
-            //         isBlock
-            //     );
-            //     Display.DisplayDropSuccessMessage("ROBOT", gridRightColumn.column, isBlock);
+                //Drop it in
+                grid.MakeMove(
+                    gridRightColumn.column,
+                    currentPlayer,
+                    playerA,
+                    playerB,
+                    isBlock
+                );
+                Display.DisplayDropSuccessMessage("ROBOT", gridRightColumn.column, isBlock);
                 
-            //     return true;
-            // }
+                return true;
+            }
 
-            // Fourth priority - add a move randomly
-            //else
-            //{
-                //Console.WriteLine("Fourth Priority");
+            Fourth priority - add a move randomly
+            else
+            {
+
                 return Bot.makeRandomMove(grid, currentPlayer, playerA, playerB, isBlock);
-            //}
+            }
         }
 
         // Rotates all grids in a list to match the original grid
@@ -183,43 +183,50 @@ namespace EAS_Project
             return true;
         }
 
+        public static void rotateGridRandomly(Grid grid)
+        {
+            Random rng = new Random();
+            int roll = rng.Next(4); // 0–3
+
+            if (roll == 0)
+            {
+                grid.RotateLeft();
+                Display.DisplayRotationMessage("LEFT");
+                Display.DisplayGrid(grid);
+            }
+            else if (roll == 1)
+            {
+                grid.RotateRight();
+                Display.DisplayRotationMessage("RIGHT");
+                Display.DisplayGrid(grid);
+            }
+        }
+
+
         public static bool makeRandomMove(Grid grid, Player currentPlayer, Player playerA, Player playerB, bool isBlock)
         {
-            Console.WriteLine("Bot Dropping block now: " + isBlock);
+
+            Bot.rotateGridRandomly(grid);
+
             // Try up to 4 orientations (original + 3 rotations)
             for (int i = 0; i < 4; i++)
             {
-                Console.WriteLine("making random move");
                 // Build list of columns
                 List<int> columns = new List<int>();
                 for (int c = 0; c < grid.Columns; c++)
                 {
-                    columns.Add(c); //was +1
+                    columns.Add(c);
                 }
-                Console.WriteLine("Building List");
 
                 // Shuffle columns
                 Random rng = new Random();
                 columns = columns.OrderBy(x => rng.Next()).ToList();
-                Console.WriteLine("Shuffling colum." );
-                Console.WriteLine($"Columns length: {columns.Count} and values rn:");
-                foreach (int col in columns)
-                {
-                    Console.Write(col);
-                }
-                Console.WriteLine();
-
 
                 // Try each column in random order
                 foreach (int col in columns)
                 {
-
-                    Console.WriteLine("Trying column: " + col + " is it: " + grid.IsValidMove(col+1, isBlock));
-
                     if (grid.IsValidMove(col + 1, isBlock))
                     {
-                        Console.WriteLine("Is valid move: col, isBl: " + col + " " + isBlock);
-
                         grid.MakeMove(col + 1, currentPlayer, playerA, playerB, isBlock);
                         Display.DisplayDropSuccessMessage("ROBOT", col, isBlock);
                         return true;
@@ -227,18 +234,16 @@ namespace EAS_Project
                 }
 
                 // If no move was possible, rotate and try again
-                grid.RotateRight();
-                Display.DisplayRotationMessage("RIGHT");
-                Display.DisplayGrid(grid);
+                Bot.rotateGridRandomly(grid);
             }
 
-            return false; // no move possible even after 4 rotations
+            return false;
         }
 
         // Returns a list of all possible moves filtered by best value BEFORE making a move
-        // Also includes column number of where to drop it
+        // Includes column number & RIGHT rotations
         // Returns empty list if no moves are good value
-        public static (Grid grid, int column)[] priorityMoves(
+        public static (Grid grid, int column, int rotations)[] priorityMoves(
             Grid grid,
             Player currentPlayer,
             Player playerA,
@@ -246,99 +251,42 @@ namespace EAS_Project
             string piece,
             bool isBlock)
         {
-            
-            (Grid simulatedGrid, int column, int rotations)[] level =
+            // Step 1: simulate all possible moves
+            (Grid simulatedGrid, int column, int rotations)[] simulatedMoves =
                 Bot.afterOneValidMove(grid, currentPlayer, playerA, playerB, isBlock);
 
-            List<(Grid grid, int column)> match3List = new List<(Grid, int)>();
+            // Step 2: Try MATCH‑3 first
+            List<(Grid grid, int column, int rotations)> match3List =
+                new List<(Grid grid, int column, int rotations)>();
 
-            foreach ((Grid simGrid, int col, int rotations) in level)
+            foreach (var move in simulatedMoves)
             {
-                Grid rotatedOriginal = grid.Clone();
-
-                // Rotate original until its Cells match simGrid BEFORE the move
-                for (int i = 0; i < 4; i++)
+                if (Bot.checkMatchThree(move.simulatedGrid, piece))
                 {
-                    bool same = true;
-
-                    if (rotatedOriginal.Rows == simGrid.Rows &&
-                        rotatedOriginal.Columns == simGrid.Columns)
-                    {
-                        for (int r = 0; r < rotatedOriginal.Rows && same; r++)
-                        {
-                            for (int c = 0; c < rotatedOriginal.Columns; c++)
-                            {
-                                if (rotatedOriginal.Cells[r, c] != simGrid.Cells[r, c])
-                                {
-                                    same = false;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        same = false;
-                    }
-
-                    if (same)
-                        break;
-
-                    rotatedOriginal.RotateRight();
+                    match3List.Add((move.simulatedGrid, move.column, move.rotations));
                 }
-
-                if (checkMatchThree(simGrid, piece))
-                    match3List.Add((rotatedOriginal, col));
             }
 
             if (match3List.Count > 0)
                 return match3List.ToArray();
 
-            // MATCH‑2
-            List<(Grid grid, int column)> match2List = new List<(Grid, int)>();
+            // Step 3: Try MATCH‑2
+            List<(Grid grid, int column, int rotations)> match2List =
+                new List<(Grid grid, int column, int rotations)>();
 
-            foreach ((Grid simGrid, int col, int rotations) in level)
+            foreach (var move in simulatedMoves)
             {
-                Grid rotatedOriginal = grid.Clone();
-
-                for (int i = 0; i < 4; i++)
+                if (Bot.checkMatchTwo(move.simulatedGrid, piece))
                 {
-                    bool same = true;
-
-                    if (rotatedOriginal.Rows == simGrid.Rows &&
-                        rotatedOriginal.Columns == simGrid.Columns)
-                    {
-                        for (int r = 0; r < rotatedOriginal.Rows && same; r++)
-                        {
-                            for (int c = 0; c < rotatedOriginal.Columns; c++)
-                            {
-                                if (rotatedOriginal.Cells[r, c] != simGrid.Cells[r, c])
-                                {
-                                    same = false;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        same = false;
-                    }
-
-                    if (same)
-                        break;
-
-                    rotatedOriginal.RotateRight();
+                    match2List.Add((move.simulatedGrid, move.column, move.rotations));
                 }
-
-                if (checkMatchTwo(simGrid, piece))
-                    match2List.Add((rotatedOriginal, col));
             }
 
             if (match2List.Count > 0)
                 return match2List.ToArray();
 
-            return Array.Empty<(Grid grid, int column)>();
+            // Step 4: No priority moves found → return empty list
+            return Array.Empty<(Grid grid, int column, int rotations)>();
         }
 
         // Checks if the bot can win this round by simulating every possible move
@@ -410,7 +358,7 @@ namespace EAS_Project
 
 
         // Returns all possible grids after 1 valid move (including 4 rotations)
-        // Each tuple now includes: the grid, the column used, and how many rotations were applied
+        // Each tuple now includes: the grid (AFTER rotation), the column used, and how many rotations (RIGHT) were applied
         public static (Grid grid, int column, int rotations)[] afterOneValidMove(
             Grid grid,
             Player currentPlayer,

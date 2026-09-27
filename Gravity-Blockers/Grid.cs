@@ -67,7 +67,6 @@ namespace EAS_Project
         public bool IsValidMove(int inputColumn, bool isBlock)
         {
             int col = inputColumn - 1;
-            Console.WriteLine($"Checkign is valid input col: {col} isBlock: {isBlock}");
 
             if (!isBlock)
             {
@@ -94,8 +93,6 @@ namespace EAS_Project
                 {
                     landingRow = Rows - 1;
                 }
-
-                Console.WriteLine("Landing row: " + landingRow);
 
                 // At least one neighbour must be a valid piece (not a block)
                 bool up    = landingRow > 0 && (Cells[landingRow - 1, col] == "[A]" || Cells[landingRow - 1, col] == "[B]");
