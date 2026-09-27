@@ -49,3 +49,9 @@ The Robot often caused an "IndexOutOfBounds" error. After further investigation,
 The issue was found by calling Console.WriteLine() at various points, and discovering that if the generated number was 0, the input column for the grid was -1, causing an indexOutOfBounds error. I have updated the input grid to be 1 greater than the generated value, thus fixing the error. The Robots 4th priority now works as expected, and it is suspected that the other 3 priorities have a similar error which will need further investigation. 
 
 As of now, the application is at an "experimental" phase until further testing is complete
+
+
+rough notes:
+
+
+on 2nd simulation, the grid wasnt rotating correctly after the 1st simulation
