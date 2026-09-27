@@ -68,52 +68,36 @@ namespace EAS_Project
 
             // Third priority - build on existing pieces
             // Next move should match 3 if possible, else match 2
+            (Grid grid, int column, int rotations)[] simulatedMoves = Bot.priorityMoves(grid, currentPlayer, playerA, playerB, piece, isBlock);
 
-            (Grid grid, int column)[] level = Bot.priorityMoves(grid, currentPlayer, playerA, playerB, piece, isBlock);
-
-            if (level.Length > 0)
+            if (simulatedMoves.Length > 0)
             {
-                Console.WriteLine("Third Priority");
-                // Level is a list of grids BEFORE rotation
-                // I pick one from this list to make my next move
                 Random rng = new Random();
-                (Grid grid, int column) gridRightColumn = level[rng.Next(level.Length)];
 
-                //A list of just 1 grid
-                Grid[] listOfGrids = new Grid[] { gridRightColumn.grid };
+                // Pick a random priority move
+                var chosen = simulatedMoves[rng.Next(simulatedMoves.Length)];
 
-                // Rotate this grid to match the original grid orientation
-                (Grid rotatedGrid, int rotations)[] gridRightRotation = Bot.rotateAllGrids(grid, listOfGrids);
-
-                // gridRightColumn = tuple(grid, int) right column number for next move but wrong rotation
-                // gridRightRotation = other way round
-
-                // Must rotate original grid RIGHT that many times, plus correct column for next move
-                var thisGrid = gridRightRotation[0]; //thisGrid is right rotation, wrong column number
-                for (int i = 0; i < thisGrid.rotations; i++)
+                // Rotate the ORIGINAL grid right 'rotations' times
+                for (int i = 0; i < chosen.rotations; i++)
                 {
                     grid.RotateRight();
                     Display.DisplayRotationMessage("RIGHT");
                     Display.DisplayGrid(grid);
                 }
 
-                //Drop it in
-                grid.MakeMove(
-                    gridRightColumn.column,
-                    currentPlayer,
-                    playerA,
-                    playerB,
-                    isBlock
-                );
-                Display.DisplayDropSuccessMessage("ROBOT", gridRightColumn.column, isBlock);
-                
+                // Now drop the piece in the chosen column
+                grid.MakeMove(chosen.column, currentPlayer, playerA, playerB, isBlock);
+                Display.DisplayDropSuccessMessage("ROBOT", chosen.column, isBlock);
+                Display.DisplayGrid(grid);
+
                 return true;
             }
 
-            Fourth priority - add a move randomly
+            
+
             else
             {
-
+                // Fourth priority - make a random move
                 return Bot.makeRandomMove(grid, currentPlayer, playerA, playerB, isBlock);
             }
         }
@@ -228,7 +212,7 @@ namespace EAS_Project
                     if (grid.IsValidMove(col + 1, isBlock))
                     {
                         grid.MakeMove(col + 1, currentPlayer, playerA, playerB, isBlock);
-                        Display.DisplayDropSuccessMessage("ROBOT", col, isBlock);
+                        Display.DisplayDropSuccessMessage("ROBOT", col + 1, isBlock);
                         return true;
                     }
                 }
@@ -377,7 +361,10 @@ namespace EAS_Project
                 if (i > 0)
                 {
                     workingGrid = grid.Clone();
-                    workingGrid.RotateRight();
+                    for (int r = 0; r < i; r++)
+                    {
+                        workingGrid.RotateRight();
+                    }
                 }
 
                 for (int col = 1; col <= workingGrid.Columns; col++)
