@@ -18,22 +18,19 @@ namespace EAS_Project
             
             if (result.canWin)
             {
-                Bot.rotateAndDrop(grid, result.rotations.Value, result.column.Value, currentPlayer, playerA, playerB, piece, isBlock);
+                return Bot.rotateAndDrop(grid, result.rotations.Value, result.column.Value, currentPlayer, playerA, playerB, piece, isBlock);
             }
 
             // Second priority - STOP THEM FROM WINNING
-            // Needed to simulate if opponent can also win
-            string opponentsPiece = (piece == "[A]") ? "[B]" :
-                (piece == "[B]") ? "[A]" :
-                piece;
+            // Need to simulate if opponent can also win
+            string opponentsPiece = (currentPlayer == playerA) ? "[B]" : "[A]";
             int opponentsMoves = 3;
 
             result = Bot.canWin(grid, opponentsPiece, currentPlayer, playerA, playerB, opponentsMoves);
 
             if (result.canWin)
             {
-                Bot.rotateAndDrop(
-                    grid, result.rotations.Value, result.column.Value, currentPlayer, playerA, playerB, piece, isBlock);
+                return Bot.rotateAndDrop(grid, result.rotations.Value, result.column.Value, currentPlayer, playerA, playerB, piece, isBlock);
             }
 
             // Third priority - build on existing pieces
@@ -115,7 +112,6 @@ namespace EAS_Project
             {
                 Grid working = g.Clone();
                 int rotations = 0;
-                bool matched = false;
 
                 // Try up to 4 orientations
                 for (int i = 0; i < 4; i++)
@@ -123,7 +119,6 @@ namespace EAS_Project
                     if (working.Equals(originalGrid))
                     {
                         results.Add((working.Clone(), rotations));
-                        matched = true;
                         break;
                     }
 

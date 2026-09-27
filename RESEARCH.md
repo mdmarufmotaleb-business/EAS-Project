@@ -62,3 +62,5 @@ bot was simulating if the opponent can win. i printed out every possible simualt
 
 
 learnt var variable bad practise
+
+robot is bug free now but the logic is wrong. if it sees the opponent can win it doesnt block of the best path

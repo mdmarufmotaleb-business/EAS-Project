@@ -9,7 +9,6 @@ namespace EAS_Project
         public Player(string playerName, bool isBot = false)
         {
             name = playerName;
-            isBot = isBot;
             movesRemaining = 3;
         }
 
