@@ -55,3 +55,10 @@ rough notes:
 
 
 on 2nd simulation, the grid wasnt rotating correctly after the 1st simulation
+
+mega bug:
+
+bot was simulating if the opponent can win. i printed out every possible simualtion. the robot is piece B and was supposed to repeatedly piut Piece A into the grid. but due to fauly logic it kept re checking piece B and always determined the opponenet (piece A) can never connect 4
+
+
+learnt var variable bad practise

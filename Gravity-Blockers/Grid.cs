@@ -44,10 +44,9 @@ namespace EAS_Project
             return piece;
         }
 
-        public void MakeMove(int inputColumn, Player currentPlayer, Player playerA, Player playerB, bool isBlock)
+        public void MakeMove(int inputColumn, Player currentPlayer, Player playerA, Player playerB, string piece, bool isBlock)
         {
-            String piece = Grid.CheckPiece(currentPlayer, playerA, playerB, isBlock);
-
+            if (isBlock) piece = "[X]";
             int col = inputColumn - 1;
 
             // Keeps dropping the piece as far as it goes in selected column

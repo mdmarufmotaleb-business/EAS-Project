@@ -11,14 +11,11 @@ namespace EAS_Project
 
             while (true) //Game loop starts here
             {
-                if (grid.CheckWin(grid, "[A]"))
+                string piece = (currentPlayer == playerA) ? "[A]" : "[B]";
+
+                if (grid.CheckWin(grid, piece))
                 {
-                    Display.DisplayWinMessage(playerA.name);
-                    break;
-                }
-                else if (grid.CheckWin(grid, "[B]"))
-                {
-                    Display.DisplayWinMessage(playerB.name);
+                    Display.DisplayWinMessage(currentPlayer.name);
                     break;
                 }
                 else if (grid.IsFull(grid))
@@ -34,7 +31,7 @@ namespace EAS_Project
                     Display.DisplayMovePieceMessage();
                     if (!currentPlayer.isBot)
                     {
-                        currentPlayer = PlayGame.MakeMove(grid, currentPlayer, playerA, playerB, false); // First and second moves are always PIECES
+                        currentPlayer = PlayGame.MakeMove(grid, currentPlayer, playerA, playerB, piece, false); // First and second moves are always PIECES
                     }
                     else
                     {
@@ -53,7 +50,7 @@ namespace EAS_Project
 
                     if (!currentPlayer.isBot)
                     {
-                        currentPlayer = PlayGame.MakeMove(grid, currentPlayer, playerA, playerB, true); // Third move is always a BLOCK
+                        currentPlayer = PlayGame.MakeMove(grid, currentPlayer, playerA, playerB, piece, true); // Third move is always a BLOCK
                     }
                     else
                     {
@@ -86,7 +83,7 @@ namespace EAS_Project
             }
         }
 
-        public static Player MakeMove(Grid grid, Player currentPlayer, Player playerA, Player playerB, bool isBlock)
+        public static Player MakeMove(Grid grid, Player currentPlayer, Player playerA, Player playerB, string piece, bool isBlock)
         {
             Console.Write("\nAnswer: ");
             string? answer = Console.ReadLine();
@@ -115,7 +112,7 @@ namespace EAS_Project
                 else if (grid.IsValidMove(column, isBlock))
                 {
                     currentPlayer.DecrementMoves();
-                    grid.MakeMove(column, currentPlayer, playerA, playerB, isBlock);
+                    grid.MakeMove(column, currentPlayer, playerA, playerB, piece, isBlock);
 
                     Display.DisplayDropSuccessMessage(currentPlayer.name, column, isBlock);
 
