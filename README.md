@@ -98,9 +98,9 @@ Both issues as of now have been fixed, and the Robot is error free. Improvements
 
 After having completed this, I realised that C# is not as scary as I thought! It is very similar to Java in terms of layout, so I was able to pick it up quite easily. Initially I was struggling with simple tasks such as printing to terminal, calling a function, installing dependencies etc. As the program kept building (especially the adding Robot logic), it became increasingly more difficult to keep track of which classes/methods interact with what
 
-This program works perfectly well if 2 players are playing, and it is definitely very fun once you get the hang of it! The biggest challenge now however is getting the Robot to work. My motivation for building a Robot was to test how far I can go, and since I was not able to successfully at this stage, I may have reached my limits. Please refer to the bottom section of the "AI.md" file for more information
+This program works perfectly well if 2 players are playing, and it is definitely very fun once you get the hang of it! The biggest challenge was getting the Robot to work, which I have now successfully completed. My motivation for building a Robot was to test how far I can go. Since I became stuck and initially did not know what to do, it has taught me that breaking down a large problem into smaller ones and tracing each step is the key to approaching what I do not know
 
-Update: After fixing the Robot, the biggest lesson I have learnt is not to ommit automated testing! Had I created a Unit Test for each of the Robot's functionality, I would have been able to find the errors a lot quicker. Since I did not do this, it took me a long time to manually trace the Robot's logic flow and keep track of each variable by printing it to the Console
+After fixing the Robot, the biggest lesson I have learnt is not to ommit automated testing! Had I created a Unit Test for each of the Robot's functionality, I would have been able to find the errors a lot quicker. Since I did not do this, it took me a long time to manually trace the Robot's logic flow and keep track of each variable by printing it to the Console
 
 
 
