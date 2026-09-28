@@ -347,8 +347,7 @@ namespace EAS_Project
                     // Check every second-move grid for a win
                     foreach ((Grid g2, int col2, int rot2) in level2)
                     {
-                        if (g2.CheckWin(g2, piece) && 
-                        !Bot.isBadMove(g2, col2, currentPlayer, playerA, playerB, piece, piece, false))
+                        if (g2.CheckWin(g2, piece))
                         {
                             Grid winning = g2.Clone();
                             return (true, winning, rot2, col2);
