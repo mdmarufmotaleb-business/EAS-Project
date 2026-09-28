@@ -50,10 +50,10 @@ Other than this, I have written down a list of specific problems I encountered a
 **Unintelligent Robot**
 - After fixing the Robot's logic, it was making non-optimal moves
 - I researched heuristics and added a simple function that prevents the Robot from placing pieces in isolation
-- This increased the Robot's intelligence, although further optimisation can definitely be looked at
+- This has increased the Robot's intelligence, although further optimisation can definitely be looked at
 
 **Search Algorithms**
 - The Robot simulates 2 moves into the future when deciding which move to make
-- The searching algorithm is not very efficient as it uses a brute force method
-- A more optimal search algorithm could be applied 
+- The current searching algorithm is not very efficient as it uses a brute force method
+- A more optimal search algorithm could be applied, although at this stage it is not necessary as the grid size is relatively small
 
