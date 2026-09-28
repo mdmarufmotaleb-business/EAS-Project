@@ -68,7 +68,7 @@ To give myself a challenge, I will be using C#. I have not learnt this language 
 I will be creating a **Command Line Application** to keep things simple. There is possibility of extension for a GUI, although this is highly unlikely for this projects scope
 
 
-# Improvements
+# Initial Submission
 
 After conducting many tests, the built in Robot **does not work as intended**. It appears the Robot is unable to rotate the Grid, and often causes IndexOutOfBounds error. With more time, this could be fixed.
 
@@ -77,10 +77,21 @@ Another major improvement is adding Unit tests - I have added a simple one to se
 - Check correct win/draw condition
 - Check valid piece/block placement
 - Check board rotates right/left
+- Check all bot branching logic
 
-Please note that all of these have been checked manually and do work to the best of my knowledge
+I have purposefully ommitted further Unit Testing at this stage to focus on features that will help me learn faster. Please note that all of these have been checked manually and do work to the best of my knowledge.
 
 Other than these, please refer to the "RESEARCH.md" file for more specific details on improvements I could make
+
+
+# Final Submission
+
+After debugging thoroughly at many points, I have discovered that the Robot had 2 key issues:
+
+- The simulated move did not match the real move in the grid, sometimes causing IndexOutOfBounds error
+- The Robot chose the first available move instead of the most optimal
+
+Both issues as of now have been fixed, and the Robot is error free. Improvements can be made to the Robot's intelligence, but as of now this is beyond the scope for this project
 
 
 # Afterthoughts
@@ -89,7 +100,7 @@ After having completed this, I realised that C# is not as scary as I thought! It
 
 This program works perfectly well if 2 players are playing, and it is definitely very fun once you get the hang of it! The biggest challenge now however is getting the Robot to work. My motivation for building a Robot was to test how far I can go, and since I was not able to successfully at this stage, I may have reached my limits. Please refer to the bottom section of the "AI.md" file for more information
 
-Update: After further testing, the robots 4th priority "Make a random move" appears to work. I have temporarily disabled the other priority moves until the issue can be resolved. Please refer to the "RESEARCH.md" file for more detail
+Update: After fixing the Robot, the biggest lesson I have learnt is not to ommit automated testing! Had I created a Unit Test for each of the Robot's functionality, I would have been able to find the errors a lot quicker. Since I did not do this, it took me a long time to manually trace the Robot's logic flow and keep track of each variable by printing it to the Console
 
 
 

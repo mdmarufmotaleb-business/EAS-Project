@@ -67,6 +67,57 @@ namespace EAS_Project
             }
         }
 
+        // Given a grid and a drop column,
+        // How many of the 8 neighbours match the comparePiece?
+        // If none match, its a bad move (there is a more optimal move)
+        public static bool isBadMove(
+            Grid grid, 
+            int column, 
+            Player currentPlayer,
+            Player playerA,
+            Player playerB,
+            string piece, 
+            string comparePiece,
+            bool isBlock)
+        {
+            Grid temp = grid.Clone();
+            temp.MakeMove(column, currentPlayer, playerA, playerB, piece, isBlock);
+
+            // Find landing row
+            int rowPlaced = -1;
+            for (int r = temp.Rows - 1; r >= 0; r--)
+            {
+                if (temp.Cells[r, column - 1] == piece)
+                {
+                    rowPlaced = r;
+                    break;
+                }
+            }
+
+            if (rowPlaced == -1)
+                return true;
+
+            // Check all 8 neighbours
+            int[] dx = { -1, 0, 1, -1, 1, -1, 0, 1 };
+            int[] dy = { -1, -1, -1, 0, 0, 1, 1, 1 };
+
+            for (int i = 0; i < 8; i++)
+            {
+                int nx = column - 1 + dx[i];
+                int ny = rowPlaced + dy[i];
+
+                if (nx >= 0 && nx < temp.Columns &&
+                    ny >= 0 && ny < temp.Rows)
+                {
+                    if (temp.Cells[ny, nx] == comparePiece)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
         public static bool rotateAndDrop(
             Grid grid, 
             int rotations, 
@@ -296,7 +347,8 @@ namespace EAS_Project
                     // Check every second-move grid for a win
                     foreach ((Grid g2, int col2, int rot2) in level2)
                     {
-                        if (g2.CheckWin(g2, piece))
+                        if (g2.CheckWin(g2, piece) && 
+                        !Bot.isBadMove(g2, col2, currentPlayer, playerA, playerB, piece, piece, false))
                         {
                             Grid winning = g2.Clone();
                             return (true, winning, rot2, col2);

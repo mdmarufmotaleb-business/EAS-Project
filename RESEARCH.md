@@ -38,29 +38,22 @@ Other than this, I have written down a list of specific problems I encountered a
 
 **Unit tests**
 - Conceptually I understand them, such as initial set ups, creating mocks, assertions, clean ups etc
-- My biggest issue was connecting my C# syntax for Unit testing to the actual code itself
+- The issue I faced initially was connecting my C# syntax for Unit testing to the actual code itself
 - I used "dotnet new xunit" to start and created a simplified test suggested by Copilot
-- Further automated tests can be added as a future improvement
+- I have purposefully ommitted Unit Testing at this stage to focus on more impactful features which would help my learning
 
 **Broken Robot**
+- The Robot often caused an "IndexOutOfBounds" error due to mis-aligned simulation grid vs real grid
+- The issue has been resolved by calling Console.WriteLine at various points and debugging the values
+- The Robots "thought process" was printed so I could visually see every iterative step the robot took
 
-The Robot often caused an "IndexOutOfBounds" error. After further investigation, part of this issue has been resolved.
+**Unintelligent Robot**
+- After fixing the Robot's logic, it was making non-optimal moves
+- I researched heuristics and added a simple function that prevents the Robot from placing pieces in isolation
+- This increased the Robot's intelligence, although further optimisation can definitely be looked at
 
-The issue was found by calling Console.WriteLine() at various points, and discovering that if the generated number was 0, the input column for the grid was -1, causing an indexOutOfBounds error. I have updated the input grid to be 1 greater than the generated value, thus fixing the error. The Robots 4th priority now works as expected, and it is suspected that the other 3 priorities have a similar error which will need further investigation. 
+**Search Algorithms**
+- The Robot simulates 2 moves into the future when deciding which move to make
+- The searching algorithm is not very efficient as it uses a brute force method
+- A more optimal search algorithm could be applied 
 
-As of now, the application is at an "experimental" phase until further testing is complete
-
-
-rough notes:
-
-
-on 2nd simulation, the grid wasnt rotating correctly after the 1st simulation
-
-mega bug:
-
-bot was simulating if the opponent can win. i printed out every possible simualtion. the robot is piece B and was supposed to repeatedly piut Piece A into the grid. but due to fauly logic it kept re checking piece B and always determined the opponenet (piece A) can never connect 4
-
-
-learnt var variable bad practise
-
-robot is bug free now but the logic is wrong. if it sees the opponent can win it doesnt block of the best path
