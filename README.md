@@ -9,7 +9,7 @@ This is a variant of the original Connect 4 built as a CLI application using C#.
 - "BLOCKS" can only be placed adjacent to any existing piece
 - Normal Connect 4 win conditions apply
 
-Players can either play against each other or the built in Robot. 
+Players can either play against each other or the built in Robot 
 
 # How to run it
 
@@ -70,7 +70,7 @@ I will be creating a **Command Line Application** to keep things simple. There i
 
 # Initial Submission
 
-After conducting many tests, the built in Robot **does not work as intended**. It appears the Robot is unable to rotate the Grid, and often causes IndexOutOfBounds error. With more time, this could be fixed.
+After conducting many tests, the built in Robot **does not work as intended**. It appears the Robot is unable to rotate the Grid, and often causes IndexOutOfBounds error. With more time, this could be fixed
 
 Another major improvement is adding Unit tests - I have added a simple one to see if I am able to. Since C# is new to me, this was a major step. I can now easily add Unit tests for all remaining functionality with more time, including:
 
@@ -79,7 +79,7 @@ Another major improvement is adding Unit tests - I have added a simple one to se
 - Check board rotates right/left
 - Check all bot branching logic
 
-I have purposefully ommitted further Unit Testing at this stage to focus on features that will help me learn faster. Please note that all of these have been checked manually and do work to the best of my knowledge.
+I have purposefully ommitted further Unit Testing at this stage to focus on features that will help me learn faster. Please note that all of these have been checked manually and do work to the best of my knowledge
 
 Other than these, please refer to the "RESEARCH.md" file for more specific details on improvements I could make
 
