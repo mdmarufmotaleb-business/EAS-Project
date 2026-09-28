@@ -13,3 +13,7 @@ Often times the AI would assume certain things. One such example is when I asked
 The final implemention of my project was to build the Robot. Conceptually, I understood exactly what I was trying to do. However, because of the structure of the project, I was not able to manually test out each new component of the Robot after creating it. As a result, I fell into the loop of asking AI to create a function, and mentally keeping track of it, then creating a bunch more which rely on it, with many parameters passing through each. I eventually reached a point where I was unable to logically determine if the generated code was correct as it required too many back and forths with other functions
 
 As a direct result, the Robot now has errors and I do not know where to begin looking or why its not working as expected
+
+**Update**
+
+The Robot's logic has now been fixed. Please refer to "RESEARCH.md" for more details on the specific errors I faced and how I resolved them
