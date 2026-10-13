@@ -350,7 +350,7 @@ namespace EAS_Project
                         if (g2.CheckWin(g2, piece))
                         {
                             Grid winning = g2.Clone();
-                            return (true, winning, rot2, col2);
+                            return (true, winning, rot1, col1);
                         }
                     }
                 }
